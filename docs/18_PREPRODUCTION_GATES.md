@@ -51,6 +51,6 @@ This describes the scope of this work, not a claim that the workspace contains n
 - [x] Requested `00`–`13` document set, plus audit and validation documents `14`–`18`.
 - [x] Source-part coverage index.
 - [x] Local Git commit created successfully for the documentation delivery; separate `time-loop/` work excluded.
-- [ ] Private GitHub repository and push verified — remote tooling/account access not available in this workspace session.
+- [x] GitHub remote connected and documentation pushed to [ChefEase/Time-Loop](https://github.com/ChefEase/Time-Loop), branch `master`, on 2026-09-17. Repository visibility was not independently verified; confirm Private in GitHub settings if required.
 
 Next useful work is the paper session described in [16](16_PROTOTYPE_SPEC.md), while resolving the specific open fiction/route questions. Do not respond to an open gate by building a larger prototype.
