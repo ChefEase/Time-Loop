@@ -1,0 +1,14 @@
+# Godot-generated cache.
+.godot/
+
+# Local editor and OS files.
+.vs/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local secrets must never be committed.
+.env
+.env.*
+!.env.example
