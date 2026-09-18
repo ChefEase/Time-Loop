@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b8ji1ysqdgvuf"]
+
+[ext_resource type="Script" uid="uid://ddk77y11hdyfb" path="res://scripts/core/GameClock.cs" id="1_eog3m"]
+
+[node name="GameClock" type="Node" unique_id=452029481]
+script = ExtResource("1_eog3m")
