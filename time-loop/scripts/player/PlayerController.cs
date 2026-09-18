@@ -3,7 +3,14 @@ using Godot;
 public partial class PlayerController : CharacterBody2D
 {
 	[Export]
-	public float Speed = 200.0f;
+	public float MoveSpeed = 180f;
+
+	private Area2D _interactionArea;
+
+	public override void _Ready()
+	{
+		_interactionArea = GetNode<Area2D>("InteractionArea");
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -14,8 +21,70 @@ public partial class PlayerController : CharacterBody2D
             "move_down"
 		);
 
-		Velocity = inputDirection * Speed;
+		Velocity = inputDirection * MoveSpeed;
 
 		MoveAndSlide();
+	}
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event.IsActionPressed("interact"))
+		{
+			TryInteract();
+
+			GetViewport().SetInputAsHandled();
+		}
+	}
+
+	private void TryInteract()
+	{
+		IInteractable nearestInteractable = null;
+		float nearestDistanceSquared = float.MaxValue;
+
+		// Check physics bodies such as NPCs, doors, signs, etc.
+		foreach (Node2D body in _interactionArea.GetOverlappingBodies())
+		{
+			CheckInteractable(
+				body,
+				ref nearestInteractable,
+				ref nearestDistanceSquared
+			);
+		}
+
+		// Also check Area2D-based interactables such as items or triggers.
+		foreach (Area2D area in _interactionArea.GetOverlappingAreas())
+		{
+			CheckInteractable(
+				area,
+				ref nearestInteractable,
+				ref nearestDistanceSquared
+			);
+		}
+
+		if (nearestInteractable != null)
+		{
+			nearestInteractable.Interact(this);
+		}
+	}
+
+	private void CheckInteractable(
+		Node2D candidate,
+		ref IInteractable nearestInteractable,
+		ref float nearestDistanceSquared
+	)
+	{
+		if (candidate is not IInteractable interactable)
+		{
+			return;
+		}
+
+		float distanceSquared =
+			GlobalPosition.DistanceSquaredTo(candidate.GlobalPosition);
+
+		if (distanceSquared < nearestDistanceSquared)
+		{
+			nearestDistanceSquared = distanceSquared;
+			nearestInteractable = interactable;
+		}
 	}
 }

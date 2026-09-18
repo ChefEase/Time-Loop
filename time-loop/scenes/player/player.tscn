@@ -3,6 +3,11 @@
 [ext_resource type="Script" uid="uid://bbwy3a8cfjunw" path="res://scripts/player/PlayerController.cs" id="1_8afob"]
 [ext_resource type="Texture2D" uid="uid://bxxy3m25g5ejh" path="res://icon.svg" id="2_dovo2"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xrivr"]
+size = Vector2(158, 138)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+
 [node name="player" type="CharacterBody2D" unique_id=413141208]
 script = ExtResource("1_8afob")
 
@@ -10,4 +15,16 @@ script = ExtResource("1_8afob")
 texture = ExtResource("2_dovo2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=898938661]
-position = Vector2(-1, 1)
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_xrivr")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1233879664]
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1332578899]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1460731185]
+position = Vector2(1.9999847, -4.000001)
+scale = Vector2(15, 15)
+shape = SubResource("CircleShape2D_xrivr")
