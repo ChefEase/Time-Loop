@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://bqtvnfpo6yosf" path="res://scenes/player/player.tscn" id="1_fgbdc"]
 [ext_resource type="PackedScene" path="res://scenes/ui/clock_hud.tscn" id="2_i4cec"]
 [ext_resource type="Script" uid="uid://dsjiyh2q4ip1l" path="res://scripts/debug/DebugClockControls.cs" id="3_2dmjg"]
+[ext_resource type="Script" uid="uid://3e0obwp3ix17" path="res://scripts/debug/WorldStateDebugTester.cs" id="4_b6u03"]
+[ext_resource type="PackedScene" path="res://scenes/interaction/test_door.tscn" id="5_door"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(358, 61)
@@ -22,7 +24,13 @@ shape = SubResource("RectangleShape2D_13qdw")
 
 [node name="DebugUI" type="CanvasLayer" parent="." unique_id=914635082]
 
-[node name="ClockHUD" parent="DebugUI" instance=ExtResource("2_i4cec")]
+[node name="ClockHUD" parent="DebugUI" unique_id=2124736187 instance=ExtResource("2_i4cec")]
 
 [node name="DebugClockControls" type="Node" parent="." unique_id=1642268722]
 script = ExtResource("3_2dmjg")
+
+[node name="WorldStateDebugTester" type="Node" parent="." unique_id=1563539640]
+script = ExtResource("4_b6u03")
+
+[node name="TestDoor" parent="." unique_id=1976716101 instance=ExtResource("5_door")]
+position = Vector2(588, 378)
