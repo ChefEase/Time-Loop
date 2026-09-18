@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dsjiyh2q4ip1l" path="res://scripts/debug/DebugClockControls.cs" id="3_2dmjg"]
 [ext_resource type="Script" uid="uid://3e0obwp3ix17" path="res://scripts/debug/WorldStateDebugTester.cs" id="4_b6u03"]
 [ext_resource type="PackedScene" path="res://scenes/interaction/test_door.tscn" id="5_door"]
+[ext_resource type="Script" uid="uid://dt0vakgiju27h" path="res://scripts/debug/EventBusDebugListener.cs" id="6_44pk5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(358, 61)
@@ -34,3 +35,6 @@ script = ExtResource("4_b6u03")
 
 [node name="TestDoor" parent="." unique_id=1976716101 instance=ExtResource("5_door")]
 position = Vector2(588, 378)
+
+[node name="EventBusDebugListener" type="Node" parent="." unique_id=726369416]
+script = ExtResource("6_44pk5")

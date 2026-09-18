@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameClock="*uid://b8ji1ysqdgvuf"
 WorldState="*uid://ujjhaiwf7e86"
+EventBus="*uid://8nhs8t6xydfs"
 
 [display]
 
