@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/prototype/NPC_A.tscn" id="1"]
+
+[sub_resource type="NavigationPolygon" id="Navigation_floor"]
+vertices = PackedVector2Array(20, 20, 1020, 20, 1020, 620, 20, 620)
+polygons = [PackedInt32Array(0, 1, 2, 3)]
+outlines = [PackedVector2Array(20, 20, 1020, 20, 1020, 620, 20, 620)]
+
+[node name="NpcScheduleTest" type="Node2D"]
+
+[node name="Floor" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(20, 20, 1020, 20, 1020, 620, 20, 620)
+color = Color(0.08, 0.12, 0.11, 1)
+
+[node name="NavigationRegion" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("Navigation_floor")
+
+[node name="Destinations" type="Node2D" parent="."]
+
+[node name="Spawn" type="Marker2D" parent="Destinations"]
+position = Vector2(200, 300)
+
+[node name="Label" type="Label" parent="Destinations/Spawn"]
+offset_left = -35.0
+offset_top = 25.0
+text = "Spawn"
+
+[node name="PointB" type="Marker2D" parent="Destinations"]
+position = Vector2(450, 300)
+
+[node name="Label" type="Label" parent="Destinations/PointB"]
+offset_left = -35.0
+offset_top = 25.0
+text = "PointB"
+
+[node name="PointC" type="Marker2D" parent="Destinations"]
+position = Vector2(700, 400)
+
+[node name="Label" type="Label" parent="Destinations/PointC"]
+offset_left = -35.0
+offset_top = 25.0
+text = "PointC"
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 40.0
+text = "NPC A / SCHEDULE TEST\n00:00 Wait    /    00:20 PointB    /    00:40 Wait    /    01:00 PointC\nWatch the Output panel for schedule changes. No input required."
+
+[node name="NPC_A" parent="." instance=ExtResource("1")]
+position = Vector2(200, 300)
+
+[node name="ScheduleRunner" parent="NPC_A" index="4" node_paths=PackedStringArray("DestinationRoot")]
+DestinationRoot = NodePath("../../Destinations")
+
+[editable path="NPC_A"]

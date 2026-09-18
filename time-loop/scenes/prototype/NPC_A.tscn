@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/npc/NpcController.cs" id="1"]
+[ext_resource type="Texture2D" path="res://icon.svg" id="2"]
+[ext_resource type="Resource" path="res://data/characters/npc_a.tres" id="3"]
+[ext_resource type="Script" path="res://scripts/npc/ScheduleRunner.cs" id="4"]
+[ext_resource type="Resource" path="res://data/schedules/npc_a_schedule.tres" id="5"]
+
+[sub_resource type="RectangleShape2D" id="Body"]
+size = Vector2(18, 18)
+
+[sub_resource type="CircleShape2D" id="Interaction"]
+radius = 32.0
+
+[node name="NPC_A" type="CharacterBody2D" node_paths=PackedStringArray("NavigationAgent")]
+script = ExtResource("1")
+Definition = ExtResource("3")
+NavigationAgent = NodePath("NavigationAgent2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("Body")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 4.0
+target_desired_distance = 4.0
+avoidance_enabled = false
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("Interaction")
+
+[node name="ScheduleRunner" type="Node" parent="." node_paths=PackedStringArray("Npc")]
+script = ExtResource("4")
+Npc = NodePath("..")
+Schedule = ExtResource("5")
