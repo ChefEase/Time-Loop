@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b8pcwb3rped73"]
 
 [ext_resource type="PackedScene" uid="uid://bqtvnfpo6yosf" path="res://scenes/player/player.tscn" id="1_fgbdc"]
-[ext_resource type="Script" uid="uid://dl0exxay6cq55" path="res://scripts/debug/DebugClockUI.cs" id="2_i4cec"]
+[ext_resource type="PackedScene" path="res://scenes/ui/clock_hud.tscn" id="2_i4cec"]
 [ext_resource type="Script" uid="uid://dsjiyh2q4ip1l" path="res://scripts/debug/DebugClockControls.cs" id="3_2dmjg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
@@ -22,14 +22,7 @@ shape = SubResource("RectangleShape2D_13qdw")
 
 [node name="DebugUI" type="CanvasLayer" parent="." unique_id=914635082]
 
-[node name="ClockLabel" type="Label" parent="DebugUI" unique_id=621906212]
-offset_left = 54.0
-offset_top = 52.0
-offset_right = 96.0
-offset_bottom = 75.0
-theme_override_font_sizes/font_size = 54
-text = "00:00"
-script = ExtResource("2_i4cec")
+[node name="ClockHUD" parent="DebugUI" instance=ExtResource("2_i4cec")]
 
 [node name="DebugClockControls" type="Node" parent="." unique_id=1642268722]
 script = ExtResource("3_2dmjg")

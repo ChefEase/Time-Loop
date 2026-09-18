@@ -1,57 +1,69 @@
 using System;
 using Godot;
 
-public partial class DebugClockUI : Label
+// Presentation only; GameClock remains the authority for time and reset.
+public partial class DebugClockUI : PanelContainer
 {
+	private GameClock _clock;
+	private Label _time;
+	private Label _status;
+	private Label _remaining;
+	private ProgressBar _progress;
+	private StyleBoxFlat _fill;
+	private string _lastStatus = "";
+
 	public override void _Ready()
 	{
-		if (GameClock.Instance == null)
+		_time = GetNode<Label>("Margin/Rows/TimeRow/Time");
+		_status = GetNode<Label>("Margin/Rows/Footer/Status");
+		_remaining = GetNode<Label>("Margin/Rows/Footer/Remaining");
+		_progress = GetNode<ProgressBar>("Margin/Rows/Progress");
+		_fill = (StyleBoxFlat)_progress.GetThemeStylebox("fill").Duplicate();
+		_progress.AddThemeStyleboxOverride("fill", _fill);
+		_clock = GameClock.Instance;
+		if (_clock == null)
 		{
-			GD.PushError("DebugClockUI could not find GameClock.");
+			_time.Text = "--:--:--";
+			_status.Text = "CLOCK OFFLINE";
+			_remaining.Text = "";
+			SetProcess(false);
 			return;
 		}
-
-		// Listen for time changes.
-		GameClock.Instance.TimeChanged += OnTimeChanged;
-
-		// Listen for loop ending.
-		GameClock.Instance.ReachedLoopEnd += OnReachedLoopEnd;
-
-		// Immediately show the current time.
-		UpdateClockText(GameClock.Instance.CurrentTime);
+		Refresh();
 	}
 
-
-	public override void _ExitTree()
+	public override void _Process(double delta)
 	{
-		// Disconnect safely when this UI disappears.
-		if (GameClock.Instance != null)
+		// Pause/speed have no signals. Read state without changing the simulation.
+		Refresh();
+	}
+
+	private void Refresh()
+	{
+		double duration = Math.Max(0, _clock.LoopDurationSeconds);
+		double elapsed = Math.Clamp(_clock.CurrentTime, 0, duration);
+		int remaining = (int)Math.Ceiling(duration - elapsed);
+		int morningSeconds = 8 * 3600 + (int)Math.Floor(elapsed);
+		string timeText = $"{morningSeconds / 3600 % 24:00}:{morningSeconds / 60 % 60:00}:{morningSeconds % 60:00}";
+		if (_time.Text != timeText)
+			_time.Text = timeText;
+		_remaining.Text = $"{remaining / 60:00}:{remaining % 60:00} LEFT";
+		_progress.Value = duration > 0 ? (duration - elapsed) / duration * 100 : 0;
+		bool ended = _clock.HasReachedLoopEnd || remaining == 0;
+		bool urgent = !ended && remaining <= 30;
+		string status = ended ? "LOOP ENDED" : _clock.IsPaused ? "CLOCK PAUSED"
+			: urgent ? "FINAL SECONDS" : "MORNING";
+		if (!ended && !_clock.IsPaused && _clock.TimeScale != 1)
+			status += $"  /  {_clock.TimeScale:0.#}x";
+		if (status != _lastStatus)
 		{
-			GameClock.Instance.TimeChanged -= OnTimeChanged;
-			GameClock.Instance.ReachedLoopEnd -= OnReachedLoopEnd;
+			_lastStatus = status;
+			_status.Text = status;
+			Color accent = ended || urgent ? new Color("ed9390")
+				: _clock.IsPaused ? new Color("a5b1a8") : new Color("d9b77a");
+			_status.AddThemeColorOverride("font_color", accent);
+			_time.AddThemeColorOverride("font_color", ended || urgent ? new Color("ed9390") : new Color("f2ead9"));
+			_fill.BgColor = accent;
 		}
-	}
-
-
-	private void OnTimeChanged(double currentTimeSeconds)
-	{
-		UpdateClockText(currentTimeSeconds);
-	}
-
-
-	private void OnReachedLoopEnd()
-	{
-		GD.Print("DebugClockUI received ReachedLoopEnd event.");
-	}
-
-
-	private void UpdateClockText(double currentTimeSeconds)
-	{
-		int totalSeconds = (int)Math.Floor(currentTimeSeconds);
-
-		int minutes = totalSeconds / 60;
-		int seconds = totalSeconds % 60;
-
-		Text = $"{minutes:00}:{seconds:00}";
 	}
 }
