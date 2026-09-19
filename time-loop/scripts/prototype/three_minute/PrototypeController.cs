@@ -143,7 +143,12 @@ public partial class PrototypeController : Node
         }
         if (eventId == PrototypeEvent.TheftReported && !_chaseStarted)
         {
-            KnowledgeManager.Instance?.Learn(KnowledgeFacts.PrototypeTheoReportedDaniel);
+            // The simulation knows about the report everywhere; Avery only
+            // learns it when close enough to observe the police interaction.
+            if (_player.GlobalPosition.DistanceTo(Marker("PoliceEntrance").GlobalPosition) < 140)
+            {
+                KnowledgeManager.Instance?.Learn(KnowledgeFacts.PrototypeTheoReportedDaniel);
+            }
             _events.Publish(new GameEvent(GameEventId.TheoReportsDaniel, "Theo", "Ruth", time));
         }
     }
