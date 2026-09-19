@@ -50,7 +50,7 @@ public partial class PrototypeDialogueSystem : CanvasLayer
 
         if (button is Button continueButton)
         {
-            continueButton.Text = "Continue  ›";
+            continueButton.Text = "Continue  [E / Space]  ›";
             continueButton.AddThemeFontSizeOverride("font_size", 18);
         }
     }

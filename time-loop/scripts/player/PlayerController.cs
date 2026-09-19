@@ -34,6 +34,12 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
+		// Let the dialogue manager receive keyboard advance input while dialogue is open.
+		if (DialogueLocked)
+		{
+			return;
+		}
+
 		if (@event.IsActionPressed("interact"))
 		{
 			TryInteract();

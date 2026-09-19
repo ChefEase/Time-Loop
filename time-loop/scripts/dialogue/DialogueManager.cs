@@ -66,6 +66,25 @@ public partial class DialogueManager : Node
         if (!_clockWasPaused) GameClock.Instance?.ResumeClock();
     }
 
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (!IsDialogueActive || @event is not InputEventKey key || !key.Pressed || key.Echo)
+        {
+            return;
+        }
+
+        if (key.Keycode != Key.E && key.Keycode != Key.Space && key.Keycode != Key.Enter && key.Keycode != Key.KpEnter)
+        {
+            return;
+        }
+
+        GetNodeOrNull<LinePresenterButtonHandler>(
+            "../DialogueSystem/DefaultDialogueSystem/LinePresenter/LinePresenterButtonHandler"
+        )?.OnClick();
+
+        GetViewport().SetInputAsHandled();
+    }
+
     public override void _ExitTree()
     {
         if (_runner != null)
