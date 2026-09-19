@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/prototype/NPC_A.tscn" id="1"]
+
+[ext_resource type="PackedScene" path="res://scenes/core/game_clock.tscn" id="clock"]
 
 [sub_resource type="NavigationPolygon" id="Navigation_floor"]
 vertices = PackedVector2Array(20, 20, 1020, 20, 1020, 620, 20, 620)
@@ -9,7 +11,10 @@ outlines = [PackedVector2Array(20, 20, 1020, 20, 1020, 620, 20, 620)]
 
 [node name="NpcScheduleTest" type="Node2D"]
 
+[node name="GameClock" parent="." instance=ExtResource("clock")]
+
 [node name="Floor" type="Polygon2D" parent="."]
+z_index = -1
 polygon = PackedVector2Array(20, 20, 1020, 20, 1020, 620, 20, 620)
 color = Color(0.08, 0.12, 0.11, 1)
 

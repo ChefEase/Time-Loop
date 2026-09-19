@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-// Presentation only; GameClock remains the authority for time and reset.
+// Presentation only; GameClock owns time and LoopManager owns reset.
 public partial class DebugClockUI : PanelContainer
 {
 	private GameClock _clock;
@@ -43,8 +43,8 @@ public partial class DebugClockUI : PanelContainer
 		double duration = Math.Max(0, _clock.LoopDurationSeconds);
 		double elapsed = Math.Clamp(_clock.CurrentTime, 0, duration);
 		int remaining = (int)Math.Ceiling(duration - elapsed);
-		int morningSeconds = 8 * 3600 + (int)Math.Floor(elapsed);
-		string timeText = $"{morningSeconds / 3600 % 24:00}:{morningSeconds / 60 % 60:00}:{morningSeconds % 60:00}";
+		int morningSeconds = (int)Math.Floor(elapsed);
+		string timeText = $"{morningSeconds / 60 % 60:00}:{morningSeconds % 60:00}";
 		if (_time.Text != timeText)
 			_time.Text = timeText;
 		_remaining.Text = $"{remaining / 60:00}:{remaining % 60:00} LEFT";
@@ -55,6 +55,7 @@ public partial class DebugClockUI : PanelContainer
 			: urgent ? "FINAL SECONDS" : "MORNING";
 		if (!ended && !_clock.IsPaused && _clock.TimeScale != 1)
 			status += $"  /  {_clock.TimeScale:0.#}x";
+		status = $"Loop: {LoopManager.Instance.LoopNumber} / {status} / Secret: {KnowledgeManager.Instance.Knows(KnowledgeFacts.SecretKnown)}";
 		if (status != _lastStatus)
 		{
 			_lastStatus = status;

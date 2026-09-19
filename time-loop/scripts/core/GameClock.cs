@@ -3,7 +3,7 @@ using Godot;
 
 public partial class GameClock : Node
 {
-	// Lets the rest of our C# project access the one global GameClock.
+	// Scene-local clock; static access is cleared when its world exits.
 	public static GameClock Instance { get; private set; } = null!;
 
 	// Fires whenever the displayed whole second changes.
@@ -13,6 +13,9 @@ public partial class GameClock : Node
 	// Fires ONCE when we reach the end of the loop.
 	[Signal]
 	public delegate void ReachedLoopEndEventHandler();
+
+	[Signal]
+	public delegate void LoopEndedEventHandler();
 
 	// Prototype = 180 seconds = 3 minutes.
 	[Export]
@@ -40,6 +43,8 @@ public partial class GameClock : Node
 	public override void _Ready()
 	{
 		Instance = this;
+		ProcessPhysicsPriority = -100;
+		LoopManager.Instance?.RegisterClock(this);
 
 		ResetClock();
 
@@ -65,6 +70,7 @@ public partial class GameClock : Node
 
 			HasReachedLoopEnd = true;
 
+			EmitSignal(SignalName.LoopEnded);
 			EmitSignal(SignalName.ReachedLoopEnd);
 
 			GD.Print("GameClock reached loop end.");
@@ -138,5 +144,11 @@ public partial class GameClock : Node
 		EmitTimeChangedIfNeeded(true);
 
 		GD.Print("GameClock reset.");
+	}
+
+	public override void _ExitTree()
+	{
+		LoopManager.Instance?.UnregisterClock(this);
+		if (Instance == this) Instance = null!;
 	}
 }

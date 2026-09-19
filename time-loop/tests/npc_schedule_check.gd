@@ -1,4 +1,4 @@
-﻿extends SceneTree
+extends SceneTree
 
 func _initialize():
     run.call_deferred()
@@ -12,10 +12,10 @@ func require(condition, message):
     return true
 
 func run():
-    var clock = root.get_node("GameClock")
-    clock.set_physics_process(false)
     var scene = load("res://scenes/prototype/NpcScheduleTest.tscn").instantiate()
     root.add_child(scene)
+    var clock = scene.get_node("GameClock")
+    clock.set_physics_process(false)
     var npc = scene.get_node("NPC_A")
     var runner = npc.get_node("ScheduleRunner")
     runner.set_physics_process(false)

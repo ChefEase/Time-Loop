@@ -1,5 +1,9 @@
 # Phase 7: one NPC schedule
 
+Phase 8 now configures `PrototypeWorld.tscn` as the main scene. See [Phase 8 setup and tests](PHASE_8.md).
+
+For K/C/R/N knowledge tests and the secret document directly in `main.tscn` (F6), see [Phase 9 setup and tests](PHASE_9.md).
+
 Open `NpcScheduleTest.tscn` in Godot and press **F6** (Run Current Scene).
 No node wiring, polygon drawing, or keyboard input is needed. The main game scene is unchanged.
 
@@ -12,8 +16,8 @@ Expected Output:
 [NPC_A] 01:00 -> MOVE PointC
 ```
 
-The existing GameClock Autoload starts at zero at normal speed in a fresh run.
-There is no second clock in this scene. Markers are at (200,300), (450,300),
+The scene-local GameClock starts at zero at normal speed in a fresh run.
+This scene owns the single clock, including when embedded in the main scene. Markers are at (200,300), (450,300),
 and (700,400). The navigation rectangle already contains polygon vertices and
 a traversable polygon; it does not require an editor bake before this test.
 

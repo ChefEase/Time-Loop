@@ -6,12 +6,26 @@
 [ext_resource type="Script" uid="uid://3e0obwp3ix17" path="res://scripts/debug/WorldStateDebugTester.cs" id="4_b6u03"]
 [ext_resource type="PackedScene" path="res://scenes/interaction/test_door.tscn" id="5_door"]
 [ext_resource type="Script" uid="uid://dt0vakgiju27h" path="res://scripts/debug/EventBusDebugListener.cs" id="6_44pk5"]
+[ext_resource type="PackedScene" path="res://scenes/prototype/NpcScheduleTest.tscn" id="7_phv0v"]
+
+[ext_resource type="Script" path="res://scripts/world/WorldState.cs" id="world"]
+
+[ext_resource type="PackedScene" path="res://scenes/interaction/TestLoopClue.tscn" id="clue"]
+
+[ext_resource type="Script" path="res://scripts/debug/KnowledgeDebugTester.cs" id="knowledge_test"]
+[ext_resource type="PackedScene" path="res://scenes/prototype/SecretDocument.tscn" id="document"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
 size = Vector2(358, 61)
 
 [node name="main" type="Node2D" unique_id=125990229]
 position = Vector2(-51, -6)
+
+[node name="WorldState" type="Node" parent="."]
+script = ExtResource("world")
+
+[node name="NpcScheduleTest" parent="." unique_id=1650867057 instance=ExtResource("7_phv0v")]
+position = Vector2(0, 160)
 
 [node name="player" parent="." unique_id=413141208 instance=ExtResource("1_fgbdc")]
 position = Vector2(458, 378)
@@ -38,3 +52,13 @@ position = Vector2(588, 378)
 
 [node name="EventBusDebugListener" type="Node" parent="." unique_id=726369416]
 script = ExtResource("6_44pk5")
+
+
+[node name="TestKey" parent="." instance=ExtResource("clue")]
+position = Vector2(300, 378)
+
+[node name="KnowledgeDebugTester" type="Node" parent="."]
+script = ExtResource("knowledge_test")
+
+[node name="SecretDocument" parent="." instance=ExtResource("document")]
+position = Vector2(458, 650)

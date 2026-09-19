@@ -35,6 +35,10 @@ The analytical paper pass is completed; overall **paper validation is not comple
 
 ## Phase boundaries
 
+**Bounded Phase 9 exception, 2026-09-19:** the user explicitly authorized extending the existing knowledge manager, centralized IDs, debug keyboard tests, and an interactable test document in `main.tscn`. See DEC-22 in the [decision log](17_DECISION_LOG.md) and the [Phase 9 verification record](../time-loop/scenes/prototype/PHASE_9.md). No save/notebook/dialogue system or full production is authorized. Automated checks do not close Gate G.
+
+**Bounded exception, 2026-09-19:** the user explicitly authorized Phase 8 loop-system implementation in the existing `time-loop/` software prototype. This supersedes the documents-only boundary for that task only. See [DEC-21](17_DECISION_LOG.md) and the [Phase 8 verification record](../time-loop/scenes/prototype/PHASE_8.md). Gate G remains OPEN; no paper playtest or full-production approval is implied.
+
 **Now:** documentation and paper testing only. No Godot project, gameplay code, production assets, installs, saves, or all-ending implementation.
 
 This describes the scope of this work, not a claim that the workspace contains no other work. The separate `time-loop/` directory appeared during the documentation pass and was not modified or included in the documentation commit.

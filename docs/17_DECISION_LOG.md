@@ -27,6 +27,10 @@
 
 ## Highest-priority remaining decisions
 
+**DEC-22 — Authorized bounded implementation, 2026-09-19:** user requested Phase 9 persistent binary knowledge and testing through `main.tscn`. Extend the existing Autoload, reserve centralized IDs, emit learned notifications once, and add debug/physical-document tests. Preserve Phase 8's real reset path and exclude saving, notebook, Yarn integration, and advanced knowledge states. The [Phase 9 record](../time-loop/scenes/prototype/PHASE_9.md) separates automated evidence from pending human acceptance. Gate G and proposed story rules are unchanged.
+
+**DEC-21 — Authorized bounded implementation, 2026-09-19:** user requested Phase 8 in the existing `time-loop/` project: three-minute scene reload, persistent knowledge/loop count, fade, and reset verification. This is an explicit exception to the documents-only boundary for this task, not adoption of proposed story rules or closure of Gate G. See the [implementation and verification record](../time-loop/scenes/prototype/PHASE_8.md). Human visual acceptance remains pending.
+
 1. Adopt or revise the shutdown/holding-mode physical rules, including early cuts and 8:15 failure behavior.
 2. Resolve Simon/Lydia chronology without weakening the tape's emotional reveal.
 3. Validate route assumptions, Sophie access, and credible persuasion on paper.

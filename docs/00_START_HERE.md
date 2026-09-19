@@ -37,6 +37,8 @@ Formatting repairs such as `3,0005,000` → `3,000–5,000`, `610` → `6–10`,
 
 ## Immediate work
 
+The user authorized bounded Phase 8 and Phase 9 software-prototype exceptions on 2026-09-19; see [phase boundaries](18_PREPRODUCTION_GATES.md). These do not complete paper validation or authorize full production.
+
 1. Review the audit and proposed rule set.
 2. Run the paper prototype with unfamiliar players using its facilitator script.
 3. Record observations without prompting the desired witness solution.

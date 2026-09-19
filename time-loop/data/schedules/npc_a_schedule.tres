@@ -1,12 +1,10 @@
-[gd_resource type="Resource" script_class="NpcSchedule" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="NpcSchedule" format=3 uid="uid://ddj4bku5mum4b"]
 
-[ext_resource type="Script" path="res://scripts/npc/NpcSchedule.cs" id="1"]
-[ext_resource type="Script" path="res://scripts/npc/ScheduleEntry.cs" id="2"]
+[ext_resource type="Script" uid="uid://co28hb61uxnb3" path="res://scripts/npc/NpcSchedule.cs" id="1"]
+[ext_resource type="Script" uid="uid://blymc1kdbaxbj" path="res://scripts/npc/ScheduleEntry.cs" id="2"]
 
 [sub_resource type="Resource" id="Entry_spawn"]
 script = ExtResource("2")
-StartTimeSeconds = 0.0
-Action = 0
 DestinationId = &"Spawn"
 
 [sub_resource type="Resource" id="Entry_b"]
@@ -18,7 +16,6 @@ DestinationId = &"PointB"
 [sub_resource type="Resource" id="Entry_wait"]
 script = ExtResource("2")
 StartTimeSeconds = 40.0
-Action = 0
 DestinationId = &"PointB"
 
 [sub_resource type="Resource" id="Entry_c"]

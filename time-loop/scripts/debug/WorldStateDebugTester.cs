@@ -4,7 +4,7 @@ public partial class WorldStateDebugTester : Node
 {
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (@event is not InputEventKey keyEvent)
+		if (!OS.IsDebugBuild() || @event is not InputEventKey keyEvent)
 		{
 			return;
 		}
@@ -23,15 +23,11 @@ public partial class WorldStateDebugTester : Node
 				);
 				break;
 
-			case Key.C:
+			case Key.V:
 				WorldState.Instance.SetFact(
 					WorldFact.TestDoorOpen,
 					false
 				);
-				break;
-
-			case Key.R:
-				WorldState.Instance.ResetToDefaults();
 				break;
 
 			case Key.P:

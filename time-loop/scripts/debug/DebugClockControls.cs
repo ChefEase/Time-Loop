@@ -4,7 +4,7 @@ public partial class DebugClockControls : Node
 {
 	public override void _Process(double delta)
 	{
-		if (GameClock.Instance == null)
+		if (!OS.IsDebugBuild() || LoopManager.Instance.IsResetting || GameClock.Instance == null)
 			return;
 
 
@@ -18,7 +18,8 @@ public partial class DebugClockControls : Node
 		// Reset
 		if (Input.IsActionJustPressed("debug_clock_reset"))
 		{
-			GameClock.Instance.ResetClock();
+			LoopManager.Instance.RequestReset();
+			return;
 		}
 
 

@@ -11,14 +11,15 @@ config_version=5
 [application]
 
 config/name="Time loop"
-run/main_scene="uid://b8pcwb3rped73"
+run/main_scene="res://scenes/prototype/PrototypeWorld.tscn"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameClock="*uid://b8ji1ysqdgvuf"
-WorldState="*uid://ujjhaiwf7e86"
+KnowledgeManager="*res://scripts/knowledge/KnowledgeManager.cs"
+LoopManager="*res://scripts/core/LoopManager.cs"
+LoopTransition="*res://scenes/ui/LoopTransition.tscn"
 EventBus="*uid://8nhs8t6xydfs"
 
 [display]
