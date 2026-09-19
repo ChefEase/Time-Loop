@@ -14,10 +14,6 @@ public partial class KnowledgeDebugTester : Node
             case Key.C:
                 GD.Print($"Does Avery know the secret? {KnowledgeManager.Instance.Knows(KnowledgeFacts.SecretKnown)}");
                 break;
-            case Key.N:
-                KnowledgeManager.Instance.ClearAllForNewGame();
-                GD.Print("DEBUG: Knowledge erased; world and loop number unchanged.");
-                break;
             default:
                 return;
         }
