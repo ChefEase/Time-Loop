@@ -7,12 +7,14 @@ public partial class CentralGreywick : Node2D
     [Export] public Vector2 CafeEntrance = new(290, 250);
     [Export] public Vector2 PoliceEntrance = new(760, 180);
     [Export] public Vector2 FloristAlley = new(860, 390);
+    [Export] public Vector2 JonahCollisionPoint = new(600, 380);
     [Export] public Vector2 UtilityAccess = new(930, 570);
 
     public override void _Ready()
     {
         GD.Print($"[Central Greywick] Cafe -> Police: {AveryStart.DistanceTo(PoliceEntrance):0} px");
         GD.Print($"[Central Greywick] Cafe -> Florist Alley: {CafeEntrance.DistanceTo(FloristAlley):0} px");
+        GD.Print($"[Central Greywick] Police -> Jonah collision: {PoliceEntrance.DistanceTo(JonahCollisionPoint):0} px");
         GD.Print($"[Central Greywick] Cafe -> Utility Access: {CafeEntrance.DistanceTo(UtilityAccess):0} px");
         QueueRedraw();
     }
@@ -47,6 +49,8 @@ public partial class CentralGreywick : Node2D
         DrawCircle(CafeEntrance, 7, new Color("c7a56b"));
         DrawCircle(PoliceEntrance, 7, new Color("8ab7d1"));
         DrawCircle(FloristAlley, 7, new Color("c89bd1"));
+        DrawCircle(JonahCollisionPoint, 10, new Color("e59a71"));
+        Label("JONAH COLLISION", JonahCollisionPoint + new Vector2(12, 5), 12, "e59a71");
         DrawCircle(UtilityAccess, 7, new Color("e2c56f"));
     }
 
