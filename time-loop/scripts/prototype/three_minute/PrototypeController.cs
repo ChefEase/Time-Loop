@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 
 // Owns prototype orchestration; reusable time, facts, events and movement stay in core systems.
@@ -34,6 +34,10 @@ public partial class PrototypeController : Node
         _collisionTrigger = GetParent().GetNode<PrototypeCollisionTrigger>("Objects/CollisionTrigger");
         _collisionTrigger.CourierCollision += OnPhysicalCollision;
         _events.Prototype += OnPrototypeEvent;
+        _events.GameEventOccurred += OnGameEvent;
+        _world.SetBool(WorldFactIds.RuthAvailable, true);
+        _world.SetBool(WorldFactIds.DanielNearby, true);
+        _world.SetBool(WorldFactIds.JonahOnDeliveryRoute, true);
         _events.Publish(PrototypeEvent.PrototypeLoopStarted, 0, "The machine needs its replacement relay.");
         SetMessage("Observe the block. The machine fails at 03:00.");
     }
@@ -83,15 +87,17 @@ public partial class PrototypeController : Node
             _jonah.GlobalPosition.DistanceTo(Marker("MachineEntrance").GlobalPosition) < 35)
         {
             _world.SetFact(WorldFact.PrototypeRelayDelivered, true);
+            _world.SetBool(WorldFactIds.RelayDelivered, true);
             _relayDeliveredAt = t;
             _events.Publish(PrototypeEvent.RelayDelivered, t, "Jonah reached Mara with the relay.");
-            SetMessage("Relay delivered — Mara is installing it.");
+            _events.Publish(new GameEvent(GameEventId.RelayDelivered, "Jonah", "Mara", t));
+            SetMessage("Relay delivered â€” Mara is installing it.");
         }
         if (_relayDeliveredAt >= 0 && !_world.GetFact(WorldFact.PrototypeMachineStable) && t >= _relayDeliveredAt + 40)
         {
             _world.SetFact(WorldFact.PrototypeMachineStable, true);
             _events.Publish(PrototypeEvent.MachineStabilized, t, "Mara finished installing the relay.");
-            SetMessage("MACHINE STABLE — the relay is installed.");
+            SetMessage("MACHINE STABLE â€” the relay is installed.");
         }
         if (!_machineChecked && t >= 150)
         {
@@ -100,7 +106,7 @@ public partial class PrototypeController : Node
             {
                 _world.SetFact(WorldFact.PrototypeMachineDestabilized, true);
                 _events.Publish(PrototypeEvent.MachineDestabilized, t, "The relay never reached the machine.");
-                SetMessage("MACHINE UNSTABLE — no relay was installed.");
+                SetMessage("MACHINE UNSTABLE â€” no relay was installed.");
             }
         }
         if (!_outcomeShown && t >= 179.5)
@@ -109,12 +115,12 @@ public partial class PrototypeController : Node
             if (_world.GetFact(WorldFact.PrototypeMachineStable))
             {
                 _events.Publish(PrototypeEvent.PrototypeSuccess, t, "The changed chain prevented the failure.");
-                SetMessage("03:00 APPROACHING — THE MACHINE REMAINS STABLE.");
+                SetMessage("03:00 APPROACHING â€” THE MACHINE REMAINS STABLE.");
             }
             else
             {
                 _events.Publish(PrototypeEvent.PrototypeExplosion, t, "The machine destabilized before the loop ended.");
-                SetMessage("03:00 APPROACHING — MACHINE FAILURE.");
+                SetMessage("03:00 APPROACHING â€” MACHINE FAILURE.");
             }
         }
         UpdateStatus(t);
@@ -125,7 +131,7 @@ public partial class PrototypeController : Node
         _keyStolen = true;
         _world.SetFact(WorldFact.PrototypeDanielHasKey, true);
         _events.Publish(PrototypeEvent.KeyStolen, _clock.CurrentTime, "Daniel took the restricted key.");
-        SetMessage("KEY TAKEN — watch who notices.");
+        SetMessage("KEY TAKEN â€” watch who notices.");
     }
 
     private void OnPrototypeEvent(PrototypeEvent eventId, double time, string detail)
@@ -138,33 +144,58 @@ public partial class PrototypeController : Node
         if (eventId == PrototypeEvent.TheftReported && !_chaseStarted)
         {
             KnowledgeManager.Instance?.Learn(KnowledgeFacts.PrototypeTheoReportedDaniel);
+            _events.Publish(new GameEvent(GameEventId.TheoReportsDaniel, "Theo", "Ruth", time));
+        }
+    }
+
+    private void OnGameEvent(GameEvent gameEvent)
+    {
+        if (gameEvent.Id == GameEventId.RuthBeginsChase && !_chaseStarted)
+        {
             _chaseStarted = true;
             _world.SetFact(WorldFact.PrototypeRuthChasingDaniel, true);
-            _events.Publish(PrototypeEvent.PoliceChaseStarted, time, "Ruth left the station after Theo's report.");
             KnowledgeManager.Instance?.Learn(KnowledgeFacts.PrototypeReportCausesChase);
+            _events.Publish(PrototypeEvent.PoliceChaseStarted, _clock.CurrentTime, "Ruth left the station after Theo's report.");
             Move(_ruth, "CollisionMarker");
             Move(_daniel, "DanielEscape01");
             _escapeStarted = true;
             SetMessage("RUTH IS CHASING DANIEL — the route changed.");
+        }
+        else if (gameEvent.Id == GameEventId.DanielFlees)
+        {
+            _world.SetBool(WorldFactIds.DanielFleeing, true);
+        }
+        else if (gameEvent.Id == GameEventId.DanielCollidesWithJonah)
+        {
+            HandleCausalCollision();
         }
     }
 
     private void OnPhysicalCollision()
     {
         if (_world.GetFact(WorldFact.PrototypeJonahInjured)) return;
+        _world.SetBool(WorldFactIds.JonahAtCollisionPoint, true);
+        _events.Publish(new GameEvent(GameEventId.DanielCollidesWithJonah, "Daniel", "Jonah", _clock.CurrentTime));
+    }
+
+    private void HandleCausalCollision()
+    {
+        if (_world.GetFact(WorldFact.PrototypeJonahInjured)) return;
         _world.SetFact(WorldFact.PrototypeJonahInjured, true);
+        _world.SetBool(WorldFactIds.JonahInjured, true);
+        _world.SetBool(WorldFactIds.JonahOnDeliveryRoute, false);
+        _world.SetBool(WorldFactIds.RelayDropped, true);
         _events.Publish(PrototypeEvent.CourierCollision, _clock.CurrentTime, "Daniel and Jonah occupied the collision trigger together.");
         _events.Publish(PrototypeEvent.CourierInjured, _clock.CurrentTime, "The relay fell at the collision.");
         _jonah.StopMoving();
         SetMessage("CRASH — Jonah was injured and the relay fell.");
     }
-
     public void SetMessage(string message) => _chainStatus.Text = message;
     private void UpdateStatus(double t)
     {
         string state = _world.GetFact(WorldFact.PrototypeJonahInjured) ? "RELAY LOST / JONAH INJURED" :
             _world.GetFact(WorldFact.PrototypeRelayDelivered) ? "RELAY DELIVERED" : "RELAY IN TRANSIT";
-        _machineStatus.Text = $"MACHINE  /  {( _world.GetFact(WorldFact.PrototypeMachineStable) ? "STABLE" : _world.GetFact(WorldFact.PrototypeMachineDestabilized) ? "UNSTABLE" : "WAITING FOR RELAY")}   ·   {state}";
+        _machineStatus.Text = $"MACHINE  /  {( _world.GetFact(WorldFact.PrototypeMachineStable) ? "STABLE" : _world.GetFact(WorldFact.PrototypeMachineDestabilized) ? "UNSTABLE" : "WAITING FOR RELAY")}   Â·   {state}";
     }
     private void Move(NpcController npc, string marker) => npc.MoveTo(Marker(marker).GlobalPosition);
     private Marker2D Marker(string name) => _markers.GetNode<Marker2D>(name);
@@ -172,6 +203,9 @@ public partial class PrototypeController : Node
     public override void _ExitTree()
     {
         if (_events != null) _events.Prototype -= OnPrototypeEvent;
+        if (_events != null) _events.GameEventOccurred -= OnGameEvent;
         if (_collisionTrigger != null) _collisionTrigger.CourierCollision -= OnPhysicalCollision;
     }
 }
+
+

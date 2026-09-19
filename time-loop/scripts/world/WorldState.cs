@@ -17,6 +17,7 @@ public partial class WorldState : Node
         { WorldFactIds.DanielNearby, true },
         { WorldFactIds.DanielFleeing, false },
         { WorldFactIds.JonahOnDeliveryRoute, true },
+        { WorldFactIds.JonahAtCollisionPoint, false },
         { WorldFactIds.JonahInjured, false },
         { WorldFactIds.RelayDelivered, false },
         { WorldFactIds.RelayDropped, false },

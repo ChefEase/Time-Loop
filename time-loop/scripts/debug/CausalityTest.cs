@@ -22,6 +22,7 @@ public partial class CausalityTest : Node
         world.SetBool(WorldFactIds.RuthAvailable, ruthAvailable);
         world.SetBool(WorldFactIds.DanielNearby, true);
         world.SetBool(WorldFactIds.JonahOnDeliveryRoute, true);
+        world.SetBool(WorldFactIds.JonahAtCollisionPoint, ruthAvailable);
         GD.Print($"==============================\n{title}\n==============================");
         EventBus.Instance?.Publish(new GameEvent(GameEventId.TheoReportsDaniel, "Theo", "Ruth"));
         bool chase = world.GetBool(WorldFactIds.DanielFleeing);

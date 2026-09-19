@@ -24,7 +24,7 @@ The HUD explains the controls in-game. The clock is three minutes (180 seconds) 
 5. Daniel and Jonah occupy the physical `CollisionTrigger` together; Jonah is injured and the relay is lost.
 6. The machine has no relay at 02:30 and destabilizes. At 03:00 the loop displays the failure outcome and resets.
 
-The collision is an Area2D overlap between Daniel and Jonah. It is not decided by checking whether Theo was distracted or whether Ruth is chasing.
+The collision is an Area2D overlap between Daniel and Jonah. It is not decided by checking whether Theo was distracted or whether Ruth is chasing. When the overlap happens, `main.tscn` publishes a typed `DanielCollidesWithJonah` event; `CausalityManager` applies the collision effects and the prototype updates the physical Jonah state.
 
 ## The one intervention
 
@@ -43,6 +43,7 @@ dotnet build --no-restore
 Godot_console.exe --headless --path . --fixed-fps 60 --script res://tests/causal_prototype_check.gd
 Godot_console.exe --headless --path . --fixed-fps 60 --script res://tests/main_hud_check.gd
 Godot_console.exe --headless --path . --fixed-fps 60 --script res://tests/blockout_check.gd
+Godot_console.exe --headless --path . --fixed-fps 60 --scene res://scenes/debug/CausalityTest.tscn
 ```
 
-The causal test runs both branches through `main.tscn`: the untouched timeline must explode, and the Theo distraction timeline must deliver the relay and succeed. The HUD test verifies the visible timer, pause/speed controls, interaction prompt, knowledge persistence and loop reset. A human playtest is still required for the final Phase 10 gate.
+The causal test runs both branches through `main.tscn`: the untouched timeline must explode, and the Theo distraction timeline must deliver the relay and succeed. It also verifies that collision comes from the physical Area2D rather than an immediate schedule shortcut. `CausalityTest.tscn` verifies the same rule engine with Ruth available/unavailable and queries the causal graph. The HUD test verifies the visible timer, pause/speed controls, interaction prompt, knowledge persistence and loop reset. A human playtest is still required for the final Phase 10 gate.

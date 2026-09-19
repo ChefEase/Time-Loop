@@ -18,7 +18,7 @@ public sealed class CausalRuleRegistry
             Array.Empty<WorldCondition>(), new[] { CausalEffect.SetWorldBool(WorldFactIds.DanielFleeing, true), CausalEffect.PublishEvent(GameEventId.DanielFlees) }));
 
         AddRule(new CausalRule("daniel_fleeing_causes_collision", "A fleeing Daniel collides with Jonah while Jonah is on his delivery route.", GameEventId.DanielFlees,
-            new[] { new WorldCondition(WorldFactIds.JonahOnDeliveryRoute, true) }, new[] { CausalEffect.PublishEvent(GameEventId.DanielCollidesWithJonah) }));
+            new[] { new WorldCondition(WorldFactIds.JonahOnDeliveryRoute, true), new WorldCondition(WorldFactIds.JonahAtCollisionPoint, true) }, new[] { CausalEffect.PublishEvent(GameEventId.DanielCollidesWithJonah) }));
 
         AddRule(new CausalRule("collision_injures_jonah", "The collision injures Jonah and drops the relay.", GameEventId.DanielCollidesWithJonah,
             Array.Empty<WorldCondition>(), new[] { CausalEffect.SetWorldBool(WorldFactIds.JonahInjured, true), CausalEffect.SetWorldBool(WorldFactIds.JonahOnDeliveryRoute, false), CausalEffect.SetWorldBool(WorldFactIds.RelayDropped, true), CausalEffect.PublishEvent(GameEventId.JonahInjured), CausalEffect.PublishEvent(GameEventId.RelayDropped) }));
