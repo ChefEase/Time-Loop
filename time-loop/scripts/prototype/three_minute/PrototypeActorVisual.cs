@@ -27,6 +27,18 @@ public partial class PrototypeActorVisual : Node2D
         DrawCircle(new Vector2(0, -10), 7, new Color("c9a888"));
         DrawArc(new Vector2(0, -11), 6, Mathf.Pi, Mathf.Tau, 12, new Color("30322e"), 5, true);
         if (IsPlayer) DrawRect(new Rect2(-5, -3, 10, 3), new Color("f1dec0"));
+
+        if (_actor.Name == "Jonah" && WorldState.Instance != null && WorldState.Instance.GetFact(WorldFact.PrototypeJonahInjured))
+        {
+            DrawCircle(new Vector2(0, -27), 10, new Color("6b3030"));
+            DrawLine(new Vector2(-5, -32), new Vector2(5, -22), new Color("f2c2a6"), 3);
+            DrawLine(new Vector2(5, -32), new Vector2(-5, -22), new Color("f2c2a6"), 3);
+        }
+
+        if (_actor.Name == "Daniel" && WorldState.Instance != null && WorldState.Instance.GetBool(WorldFactIds.DanielFleeing))
+        {
+            DrawArc(new Vector2(0, -2), 22, Mathf.Pi, Mathf.Tau, 18, new Color("e3a15c"), 2, true);
+        }
     }
     private void DrawEllipse(Vector2 center, Vector2 radius, Color color)
     {

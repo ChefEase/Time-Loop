@@ -16,6 +16,9 @@ public partial class PrototypeHud : CanvasLayer
     private ProgressBar _timeline;
     private Vector2 _panelHeights;
     private Label _eventLog;
+    private Label _causalFeed;
+    private Label _impactBanner;
+    private Tween _impactTween;
     private readonly List<string> _eventLines = new();
 
     public override void _Ready()
@@ -29,7 +32,10 @@ public partial class PrototypeHud : CanvasLayer
         _document = GetParent().GetNode<SecretDocument>("SecretDocument");
         _timeline = GetNode<ProgressBar>("Screen/Top/Rows/Timeline");
         _eventLog = GetNode<Label>("Screen/EventLog/Rows/Text");
+        _causalFeed = GetNode<Label>("Screen/CausalFeed/Rows/Text");
+        _impactBanner = GetNode<Label>("Screen/ImpactBanner");
         EventBus.Instance.Prototype += OnPrototypeEvent;
+        EventBus.Instance.GameEventOccurred += OnGameEvent;
         GetNode<Label>("Screen/Bottom/Rows/DebugControls").Visible = false;
         GetNode<Control>("Screen/EventLog").Visible = false;
         GetNode<Label>("Screen/Bottom/Rows/Controls").Text = OS.IsDebugBuild()
@@ -86,10 +92,67 @@ public partial class PrototypeHud : CanvasLayer
         _eventLines.Add($"{time / 60:00}:{time % 60:00.0}  {eventId}");
         while (_eventLines.Count > 9) _eventLines.RemoveAt(0);
         _eventLog.Text = string.Join("\n", _eventLines);
+
+        switch (eventId)
+        {
+            case PrototypeEvent.TheftReported:
+                ShowCausal("THEO REPORTS  →  RUTH IS AVAILABLE  →  CHASE STARTS", "THEO REPORTED DANIEL");
+                break;
+            case PrototypeEvent.PoliceChaseStarted:
+                ShowCausal("RUTH CHASES  →  DANIEL SWITCHES TO ESCAPE ROUTE", "RUTH STARTED THE CHASE");
+                break;
+            case PrototypeEvent.CourierCollision:
+                ShowCausal("DANIEL FLEES + JONAH ON ROUTE  →  COLLISION", "COLLISION!");
+                break;
+            case PrototypeEvent.CourierInjured:
+                ShowCausal("COLLISION  →  JONAH INJURED  →  RELAY DROPPED", "JONAH WAS INJURED — RELAY DROPPED");
+                break;
+            case PrototypeEvent.RelayDelivered:
+                ShowCausal("JONAH REACHES MARA  →  RELAY DELIVERED", "RELAY DELIVERED");
+                break;
+            case PrototypeEvent.MachineDestabilized:
+                ShowCausal("RELAY DROPPED  →  MACHINE UNSTABLE  →  FAILURE AHEAD", "MACHINE UNSTABLE");
+                break;
+            case PrototypeEvent.PrototypeExplosion:
+                ShowCausal("MACHINE UNSTABLE  →  THREE MINUTES  →  EXPLOSION", "MACHINE FAILURE");
+                break;
+            case PrototypeEvent.MachineStabilized:
+                ShowCausal("RELAY DELIVERED  →  MARA INSTALLS IT  →  MACHINE STABLE", "MACHINE STABLE");
+                break;
+            case PrototypeEvent.PrototypeSuccess:
+                ShowCausal("THE COLLISION WAS PREVENTED  →  RELAY ARRIVED  →  NO EXPLOSION", "THE CHAIN CHANGED");
+                break;
+        }
+    }
+
+    private void OnGameEvent(GameEvent gameEvent)
+    {
+        if (gameEvent.Id == GameEventId.RuthBeginsChase)
+            ShowCausal("THEO REPORTS DANIEL  →  RUTH AVAILABLE  →  RUTH CHASES", "CAUSE FOUND: REPORT → CHASE");
+        else if (gameEvent.Id == GameEventId.DanielFlees)
+            ShowCausal("RUTH CHASES  →  DANIEL FLEES", "DANIEL CHANGED ROUTE");
+        else if (gameEvent.Id == GameEventId.DanielCollidesWithJonah)
+            ShowCausal("DANIEL FLEES + JONAH ON DELIVERY ROUTE  →  COLLISION", "CAUSE FOUND: ESCAPE ROUTE → COLLISION");
+    }
+
+    private void ShowCausal(string explanation, string banner)
+    {
+        _causalFeed.Text = explanation;
+        _impactBanner.Text = banner;
+        _impactBanner.Visible = true;
+        Color color = _impactBanner.Modulate;
+        color.A = 1.0f;
+        _impactBanner.Modulate = color;
+        _impactTween?.Kill();
+        _impactTween = CreateTween();
+        _impactTween.TweenInterval(1.8f);
+        _impactTween.TweenProperty(_impactBanner, "modulate:a", 0.0f, 0.8f);
+        _impactTween.TweenCallback(Callable.From(() => _impactBanner.Visible = false));
     }
 
     public override void _ExitTree()
     {
         if (EventBus.Instance != null) EventBus.Instance.Prototype -= OnPrototypeEvent;
+        if (EventBus.Instance != null) EventBus.Instance.GameEventOccurred -= OnGameEvent;
     }
 }

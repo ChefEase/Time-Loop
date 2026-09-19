@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class PrototypeMapVisual : Node2D
 {
     private readonly List<Rect2> _walls = new();
+    public override void _Process(double delta) => QueueRedraw();
     public override void _Ready()
     {
         var geometry = GetParent().GetNode<Node2D>("WorldGeometry");
@@ -90,5 +91,30 @@ public partial class PrototypeMapVisual : Node2D
         DrawString(ThemeDB.FallbackFont, new Vector2(293, 104), "POLICE", HorizontalAlignment.Left, -1, 19, new Color("e8dec1"));
         DrawString(ThemeDB.FallbackFont, new Vector2(823, 706), "MACHINE ROOM", HorizontalAlignment.Left, -1, 16, new Color("e8dec1"));
         DrawString(ThemeDB.FallbackFont, new Vector2(255, 567), "KEY RACK", HorizontalAlignment.Left, -1, 12, new Color("c2b793"));
+
+        if (WorldState.Instance != null)
+        {
+            bool injured = WorldState.Instance.GetFact(WorldFact.PrototypeJonahInjured);
+            bool stable = WorldState.Instance.GetFact(WorldFact.PrototypeMachineStable);
+            bool unstable = WorldState.Instance.GetFact(WorldFact.PrototypeMachineDestabilized);
+            if (injured)
+            {
+                DrawCircle(new Vector2(600, 500), 26, new Color(0.65f, 0.16f, 0.13f, 0.35f));
+                DrawLine(new Vector2(585, 485), new Vector2(615, 515), new Color("e7a07b"), 4);
+                DrawLine(new Vector2(615, 485), new Vector2(585, 515), new Color("e7a07b"), 4);
+                DrawString(ThemeDB.FallbackFont, new Vector2(625, 505), "RELAY DROPPED", HorizontalAlignment.Left, -1, 13, new Color("f0b27f"));
+            }
+            if (stable)
+            {
+                DrawCircle(new Vector2(958, 510), 9, new Color("74d2a0"));
+                DrawString(ThemeDB.FallbackFont, new Vector2(880, 585), "RELAY INSTALLED", HorizontalAlignment.Left, -1, 13, new Color("9fe2bd"));
+            }
+            else if (unstable)
+            {
+                float pulse = 0.55f + Mathf.Sin((float)Time.GetTicksMsec() / 110.0f) * 0.25f;
+                DrawCircle(new Vector2(958, 510), 12, new Color(0.9f, 0.25f, 0.16f, pulse));
+                DrawString(ThemeDB.FallbackFont, new Vector2(885, 585), "UNSTABLE", HorizontalAlignment.Left, -1, 13, new Color("f09a78"));
+            }
+        }
     }
 }

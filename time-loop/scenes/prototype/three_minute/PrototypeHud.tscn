@@ -175,3 +175,46 @@ text = "EVENT TRACE  /  F1 TO HIDE"
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "Waiting for prototype events..."
+
+[node name="CausalFeed" type="PanelContainer" parent="Screen"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 162.0
+offset_right = 365.0
+offset_bottom = 342.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("panel")
+
+[node name="Rows" type="VBoxContainer" parent="Screen/CausalFeed"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Screen/CausalFeed/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76, 0.66, 0.43, 1)
+theme_override_font_sizes/font_size = 13
+text = "CAUSAL CHAIN  /  LIVE"
+
+[node name="Text" type="Label" parent="Screen/CausalFeed/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.87, 0.79, 1)
+theme_override_font_sizes/font_size = 13
+text = "Waiting for a meaningful event..."
+autowrap_mode = 2
+
+[node name="ImpactBanner" type="Label" parent="Screen"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 350.0
+offset_right = 300.0
+offset_bottom = 405.0
+theme_override_colors/font_color = Color(0.98, 0.86, 0.56, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 24
+text = ""
+horizontal_alignment = 1
+visible = false
+mouse_filter = 2
