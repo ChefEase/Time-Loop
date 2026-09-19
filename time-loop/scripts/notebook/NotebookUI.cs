@@ -21,6 +21,7 @@ public partial class NotebookUI : CanvasLayer
     };
 
     private Control _panel = null!;
+    private Control _dimmer = null!;
     private TabContainer _tabs = null!;
     private Button _closeButton = null!;
     private VBoxContainer _peopleList = null!;
@@ -37,6 +38,7 @@ public partial class NotebookUI : CanvasLayer
     {
         ProcessMode = ProcessModeEnum.Always;
         _panel = GetNode<Control>("NotebookPanel");
+        _dimmer = GetNode<Control>("BackgroundDimmer");
         _tabs = GetNode<TabContainer>("NotebookPanel/MainVBox/Tabs");
         _closeButton = GetNode<Button>("NotebookPanel/MainVBox/Header/CloseButton");
         _peopleList = GetNode<VBoxContainer>("NotebookPanel/MainVBox/Tabs/People/PeopleSplit/PeopleListScroll/PeopleList");
@@ -47,7 +49,9 @@ public partial class NotebookUI : CanvasLayer
         _notification = GetNode<Label>("NewEntryNotification");
         _closeButton.Pressed += CloseNotebook;
         _tabs.TabChanged += _ => RefreshNotebook();
-        Visible = false;
+        Visible = true;
+        _panel.Visible = false;
+        _dimmer.Visible = false;
         IsOpen = false;
         if (KnowledgeManager.Instance != null)
         {
@@ -103,7 +107,8 @@ public partial class NotebookUI : CanvasLayer
         _wasTreePaused = GetTree().Paused;
         _wasClockPaused = GameClock.Instance?.IsPaused ?? false;
         IsOpen = true;
-        Visible = true;
+        _panel.Visible = true;
+        _dimmer.Visible = true;
         GetTree().Paused = true;
         GameClock.Instance?.PauseClock();
         RefreshNotebook();
@@ -113,7 +118,8 @@ public partial class NotebookUI : CanvasLayer
     {
         if (!IsOpen) return;
         IsOpen = false;
-        Visible = false;
+        _panel.Visible = false;
+        _dimmer.Visible = false;
         GetTree().Paused = _wasTreePaused;
         if (!_wasClockPaused) GameClock.Instance?.ResumeClock();
     }
