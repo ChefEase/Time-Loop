@@ -6,6 +6,7 @@ public partial class PrototypeTheoInteraction : Area2D, IInteractable
     public override void _Ready() => _controller = GetTree().CurrentScene.GetNode<PrototypeController>("PrototypeController");
     public void Interact(Node interactor)
     {
+        KnowledgeManager.Instance?.Learn(KnowledgeFacts.PersonTheo);
         if (GameClock.Instance.CurrentTime >= 35)
         {
             _controller.SetMessage("Theo is focused on something down the street. Too late.");

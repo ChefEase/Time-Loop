@@ -19,4 +19,15 @@ public static class KnowledgeFacts
     // Three-minute prototype observations. These persist across loop reloads.
     public const string PrototypeTheoReportedDaniel = "prototype.theo_reported_daniel";
     public const string PrototypeReportCausesChase = "prototype.report_causes_chase";
+
+    // Notebook MVP discovery and display facts.
+    public const string PersonDaniel = "person.daniel_cross";
+    public const string PersonTheo = "person.theo_shaw";
+    public const string PersonRuth = "person.ruth_reed";
+    public const string TimelineDanielStoleKey = DanielStoleKey;
+    public const string TimelineTheoReportedDaniel = PrototypeTheoReportedDaniel;
+    public const string TimelineJonahInjured = "prototype.jonah_injured";
+    public const string ClueBrassKey = "clue.brass_key_discovered";
+    public const string ClueDeliveryParcel = "clue.delivery_parcel_discovered";
+    public const string ClueWitnessStatement = "clue.witness_statement_discovered";
 }
