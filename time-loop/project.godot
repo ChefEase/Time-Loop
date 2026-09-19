@@ -21,6 +21,7 @@ KnowledgeManager="*res://scripts/knowledge/KnowledgeManager.cs"
 LoopManager="*res://scripts/core/LoopManager.cs"
 LoopTransition="*res://scenes/ui/LoopTransition.tscn"
 EventBus="*uid://8nhs8t6xydfs"
+CausalityManager="*res://scripts/causality/CausalityManager.cs"
 
 [display]
 

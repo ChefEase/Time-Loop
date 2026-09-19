@@ -8,6 +8,7 @@ public partial class EventBus : Node
 
     public event Action<DoorOpenedEvent>? DoorOpened;
     public event Action<ItemTakenEvent>? ItemTaken;
+    public event Action<GameEvent>? GameEventOccurred;
     public event Action<PrototypeEvent, double, string>? Prototype;
     public Godot.Collections.Array<int> PrototypeEventHistory { get; } = new();
 
@@ -41,6 +42,11 @@ public partial class EventBus : Node
     public void Publish(ItemTakenEvent eventData)
     {
         ItemTaken?.Invoke(eventData);
+    }
+
+    public void Publish(GameEvent gameEvent)
+    {
+        GameEventOccurred?.Invoke(gameEvent);
     }
 
     public void Publish(PrototypeEvent eventId, double gameTime, string detail = "")

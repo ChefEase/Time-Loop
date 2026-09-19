@@ -10,6 +10,21 @@ public partial class WorldState : Node
     public event Action? WorldReset;
 
     private readonly Dictionary<WorldFact, bool> _facts = new();
+    private readonly Dictionary<string, bool> _causalFacts = new();
+    private static readonly Dictionary<string, bool> DefaultCausalFacts = new()
+    {
+        { WorldFactIds.RuthAvailable, true },
+        { WorldFactIds.DanielNearby, true },
+        { WorldFactIds.DanielFleeing, false },
+        { WorldFactIds.JonahOnDeliveryRoute, true },
+        { WorldFactIds.JonahInjured, false },
+        { WorldFactIds.RelayDelivered, false },
+        { WorldFactIds.RelayDropped, false },
+        { WorldFactIds.MercerAlive, true },
+        { WorldFactIds.CoolantActive, false },
+        { WorldFactIds.GridStable, false },
+        { WorldFactIds.ArthurAgreesToAbort, false }
+    };
 
     private static readonly Dictionary<WorldFact, bool> DefaultFacts = new()
     {
@@ -39,6 +54,22 @@ public partial class WorldState : Node
 
         GD.Print("[WorldState] Ready.");
     }
+
+    public bool GetBool(string factId)
+    {
+        if (_causalFacts.TryGetValue(factId, out bool value)) return value;
+        GD.PushWarning($"[WorldState] Requested unknown causal bool fact: {factId}");
+        return false;
+    }
+
+    public void SetBool(string factId, bool value)
+    {
+        bool previous = GetBool(factId);
+        _causalFacts[factId] = value;
+        if (previous != value) GD.Print($"[WorldState] {factId}: {previous} -> {value}");
+    }
+
+    public bool HasBool(string factId) => _causalFacts.ContainsKey(factId);
 
     public bool GetFact(WorldFact fact)
     {
@@ -74,6 +105,9 @@ public partial class WorldState : Node
         {
             _facts[pair.Key] = pair.Value;
         }
+
+        _causalFacts.Clear();
+        foreach (var pair in DefaultCausalFacts) _causalFacts[pair.Key] = pair.Value;
 
         GD.Print("[WorldState] World facts reset to defaults.");
         WorldReset?.Invoke();

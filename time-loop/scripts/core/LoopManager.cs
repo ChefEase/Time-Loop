@@ -51,6 +51,7 @@ public partial class LoopManager : Node
         {
             GD.Print($"Ending loop {LoopNumber}.");
             await LoopTransition.Instance.FadeToBlack();
+            CausalityManager.Instance?.ResetForNewLoop();
             LoopNumber++;
             Error result = tree.ReloadCurrentScene();
             if (result != Error.Ok)
