@@ -47,6 +47,13 @@ public partial class NotebookUI : CanvasLayer
         _cluesList = GetNode<VBoxContainer>("NotebookPanel/MainVBox/Tabs/Clues/CluesScroll/CluesList");
         _debugHint = GetNode<Label>("NotebookPanel/MainVBox/DebugHint");
         _notification = GetNode<Label>("NewEntryNotification");
+        ConnectDebugButton("GrantDaniel", () => Learn(KnowledgeFacts.PersonDaniel));
+        ConnectDebugButton("GrantTheft", () => Learn(KnowledgeFacts.DanielStoleKey));
+        ConnectDebugButton("GrantTheo", () => Learn(KnowledgeFacts.PersonTheo));
+        ConnectDebugButton("GrantKey", () => Learn(KnowledgeFacts.ClueBrassKey));
+        ConnectDebugButton("GrantInjury", () => Learn(KnowledgeFacts.TimelineJonahInjured));
+        ConnectDebugButton("ClearKnowledge", () => { KnowledgeManager.Instance?.ClearAllForNewGame(); RefreshNotebook(); });
+        GetNode<Control>("NotebookPanel/MainVBox/DebugButtons").Visible = OS.IsDebugBuild();
         _closeButton.Pressed += CloseNotebook;
         _tabs.TabChanged += _ => RefreshNotebook();
         Visible = true;
@@ -81,18 +88,6 @@ public partial class NotebookUI : CanvasLayer
             return;
         }
 
-        if (!OS.IsDebugBuild()) return;
-        switch (key.Keycode)
-        {
-            case Key.F7: Learn(KnowledgeFacts.PersonDaniel); break;
-            case Key.F8: Learn(KnowledgeFacts.DanielStoleKey); break;
-            case Key.F9: Learn(KnowledgeFacts.PersonTheo); break;
-            case Key.F10: Learn(KnowledgeFacts.ClueBrassKey); break;
-            case Key.F11: Learn(KnowledgeFacts.TimelineJonahInjured); break;
-            case Key.F12: KnowledgeManager.Instance?.ClearAllForNewGame(); RefreshNotebook(); break;
-            default: return;
-        }
-        GetViewport().SetInputAsHandled();
     }
 
     public void ToggleNotebook()
@@ -211,6 +206,10 @@ public partial class NotebookUI : CanvasLayer
     }
 
     private void Learn(string factId) => KnowledgeManager.Instance?.Learn(factId);
+    private void ConnectDebugButton(string nodeName, Action action)
+    {
+        GetNode<Button>($"NotebookPanel/MainVBox/DebugButtons/{nodeName}").Pressed += action;
+    }
     private bool Knows(string factId) => KnowledgeManager.Instance?.Knows(factId) ?? false;
     private static void Clear(Container container) { foreach (Node child in container.GetChildren()) child.QueueFree(); }
     private static void AddEmpty(Container container, string text) => AddBody(container, text);

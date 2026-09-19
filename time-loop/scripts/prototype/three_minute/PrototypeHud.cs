@@ -41,7 +41,7 @@ public partial class PrototypeHud : CanvasLayer
         GetNode<Label>("Screen/Bottom/Rows/DebugControls").Visible = false;
         GetNode<Control>("Screen/EventLog").Visible = false;
         GetNode<Label>("Screen/Bottom/Rows/Controls").Text = OS.IsDebugBuild()
-            ? "WASD / arrows   Move     E / Space   Interact     R   Restart loop     F1   Test controls"
+            ? "WASD / arrows   Move     E / Space   Interact     R   Restart loop     TAB   Event trace"
             : "WASD / arrows   Move     E / Space   Interact";
         Refresh();
     }
@@ -50,7 +50,7 @@ public partial class PrototypeHud : CanvasLayer
 
     public override void _UnhandledKeyInput(InputEvent @event)
     {
-        if (OS.IsDebugBuild() && @event is InputEventKey key && key.Pressed && !key.Echo && key.Keycode == Key.F1)
+        if (OS.IsDebugBuild() && @event is InputEventKey key && key.Pressed && !key.Echo && key.Keycode == Key.Tab)
         {
             var controls = GetNode<Label>("Screen/Bottom/Rows/DebugControls");
             controls.Visible = !controls.Visible;

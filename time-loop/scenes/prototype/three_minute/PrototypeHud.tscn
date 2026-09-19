@@ -126,7 +126,7 @@ text = "WASD / arrows: move | E / Space: interact"
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 theme_override_colors/font_color = Color(0.63, 0.71, 0.69, 1)
-text = "WASD / arrows   Move     E / Space   Interact     R   Restart loop     F1   Test controls"
+text = "WASD / arrows   Move     E / Space   Interact     R   Restart loop     TAB   Event trace"
 [node name="DebugControls" type="Label" parent="Screen/Bottom/Rows"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
@@ -169,7 +169,7 @@ layout_mode = 2
 [node name="Title" type="Label" parent="Screen/EventLog/Rows"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.76, 0.66, 0.43, 1)
-text = "EVENT TRACE  /  F1 TO HIDE"
+text = "EVENT TRACE  /  TAB TO HIDE"
 
 [node name="Text" type="Label" parent="Screen/EventLog/Rows"]
 layout_mode = 2

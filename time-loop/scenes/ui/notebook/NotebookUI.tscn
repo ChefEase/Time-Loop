@@ -133,4 +133,31 @@ theme_override_constants/separation = 8
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5, 0.62, 0.62, 1)
 theme_override_font_sizes/font_size = 12
-text = "Notebook pauses time  ·  Debug: F7 Daniel  F8 theft  F9 Theo  F10 key clue  F11 injury  F12 clear"
+text = "Notebook pauses time  ·  Developer buttons below are for testing only"
+
+[node name="DebugButtons" type="HBoxContainer" parent="NotebookPanel/MainVBox"]
+layout_mode = 2
+
+[node name="GrantDaniel" type="Button" parent="NotebookPanel/MainVBox/DebugButtons"]
+layout_mode = 2
+text = "+ Daniel"
+
+[node name="GrantTheft" type="Button" parent="NotebookPanel/MainVBox/DebugButtons"]
+layout_mode = 2
+text = "+ Theft"
+
+[node name="GrantTheo" type="Button" parent="NotebookPanel/MainVBox/DebugButtons"]
+layout_mode = 2
+text = "+ Theo"
+
+[node name="GrantKey" type="Button" parent="NotebookPanel/MainVBox/DebugButtons"]
+layout_mode = 2
+text = "+ Key clue"
+
+[node name="GrantInjury" type="Button" parent="NotebookPanel/MainVBox/DebugButtons"]
+layout_mode = 2
+text = "+ Injury"
+
+[node name="ClearKnowledge" type="Button" parent="NotebookPanel/MainVBox/DebugButtons"]
+layout_mode = 2
+text = "Clear"
