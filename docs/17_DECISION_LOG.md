@@ -39,3 +39,5 @@
 4. Run unfamiliar-player toy tests and decide whether causal curiosity warrants a software prototype.
 
 Keep proposed choices explicit when revising. After adopting a proposal, update its owning document and rerun affected paper cases; do not just change the status in this table.
+
+**DEC-24 — Authorized bounded Phase 10 implementation, 2026-09-19:** the user expanded the earlier map-only authorization to implement the complete three-minute software prototype in `main.tscn`: deterministic Daniel theft, physical Theo witness/intervention, report-driven Ruth chase, route-dependent Daniel/Jonah Area2D collision, relay delivery, machine stability/failure, loop reset, persistent prototype observations, HUD controls, and an event log. This remains a greybox validation build; it does not add save/notebook/dialogue systems, adopt paper scenario details as canon, or close Gate G. Automated checks pass; unfamiliar-player acceptance remains open.

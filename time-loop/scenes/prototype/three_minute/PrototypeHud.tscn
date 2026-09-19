@@ -1,0 +1,177 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/prototype/three_minute/PrototypeHud.cs" id="script"]
+[sub_resource type="StyleBoxFlat" id="panel"]
+bg_color = Color(0.065, 0.105, 0.125, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.43, 0.45, 0.36, 0.8)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_left = 5
+corner_radius_bottom_right = 5
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="track"]
+bg_color = Color(0.15, 0.23, 0.25, 1)
+
+[sub_resource type="StyleBoxFlat" id="fill"]
+bg_color = Color(0.77, 0.66, 0.42, 1)
+content_margin_left = 18.0
+content_margin_right = 14.0
+content_margin_top = 12.0
+content_margin_bottom = 12.0
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("script")
+
+[node name="Screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Top" type="PanelContainer" parent="Screen"]
+layout_mode = 0
+anchor_right = 0.0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 335.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("panel")
+
+[node name="Rows" type="VBoxContainer" parent="Screen/Top"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Brand" type="Label" parent="Screen/Top/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.75, 0.65, 0.42, 1)
+text = "8:15   /   THREE-MINUTE PROTOTYPE"
+[node name="Time" type="Label" parent="Screen/Top/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.95, 0.89, 0.75, 1)
+text = "00:00 / 03:00 remaining | Loop 1"
+
+[node name="Status" type="Label" parent="Screen/Top/Rows"]
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.64, 0.73, 0.71, 1)
+layout_mode = 2
+text = "Clock 1x"
+
+[node name="Scope" type="Label" parent="Screen/Top/Rows"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "MAP TEST: explore the street and both buildings. NPC schedules are not active yet."
+
+[node name="Timeline" type="ProgressBar" parent="Screen/Top/Rows"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 4)
+theme_override_styles/background = SubResource("track")
+theme_override_styles/fill = SubResource("fill")
+show_percentage = false
+value = 100.0
+mouse_filter = 2
+
+[node name="Objective" type="PanelContainer" parent="Screen"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -360.0
+offset_top = 8.0
+offset_right = -12.0
+theme_override_styles/panel = SubResource("panel")
+mouse_filter = 2
+
+[node name="Text" type="Label" parent="Screen/Objective"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.83, 0.83, 0.72, 1)
+text = "EXPLORE THE BLOCK
+Read the field note.
+See what survives a reset."
+mouse_filter = 2
+[node name="Bottom" type="PanelContainer" parent="Screen"]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -110.0
+offset_right = -12.0
+offset_bottom = -8.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("panel")
+
+[node name="Rows" type="VBoxContainer" parent="Screen/Bottom"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Prompt" type="Label" parent="Screen/Bottom/Rows"]
+theme_override_colors/font_color = Color(0.94, 0.87, 0.68, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "WASD / arrows: move | E / Space: interact"
+
+[node name="Controls" type="Label" parent="Screen/Bottom/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.63, 0.71, 0.69, 1)
+text = "WASD / arrows   Move     E / Space   Interact     R   Restart loop     F1   Test controls"
+[node name="DebugControls" type="Label" parent="Screen/Bottom/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "TEST CONTROLS   R: reset loop   P: pause clock only   1 / 2 / 3 / 4: clock 1x / 2x / 5x / 10x\nK: learn test secret   C: print knowledge to Output   N: clear knowledge only"
+
+[node name="Knowledge" type="Label" parent="Screen/Bottom/Rows"]
+theme_override_colors/font_color = Color(0.53, 0.74, 0.67, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Test secret: not learned"
+
+[node name="ChainStatus" type="Label" parent="Screen/Bottom/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.76, 0.46, 1)
+theme_override_font_sizes/font_size = 14
+text = "Observe the block."
+
+[node name="MachineStatus" type="Label" parent="Screen/Bottom/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.66, 0.78, 0.72, 1)
+theme_override_font_sizes/font_size = 13
+text = "MACHINE / WAITING FOR RELAY"
+
+[node name="EventLog" type="PanelContainer" parent="Screen"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = -430.0
+offset_right = -12.0
+offset_bottom = -135.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("panel")
+
+[node name="Rows" type="VBoxContainer" parent="Screen/EventLog"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Screen/EventLog/Rows"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76, 0.66, 0.43, 1)
+text = "EVENT TRACE  /  F1 TO HIDE"
+
+[node name="Text" type="Label" parent="Screen/EventLog/Rows"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Waiting for prototype events..."

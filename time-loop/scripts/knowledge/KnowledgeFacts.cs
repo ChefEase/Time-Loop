@@ -15,4 +15,8 @@ public static class KnowledgeFacts
     public const string MeridianExists = "history.meridian_exists";
     public const string LydiaWasArthursDaughter = "history.lydia_wren";
     public const string PhaseEchoesAreRecordings = "history.phase_echo_truth";
+
+    // Three-minute prototype observations. These persist across loop reloads.
+    public const string PrototypeTheoReportedDaniel = "prototype.theo_reported_daniel";
+    public const string PrototypeReportCausesChase = "prototype.report_causes_chase";
 }

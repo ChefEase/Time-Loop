@@ -20,6 +20,15 @@ public partial class WorldState : Node
         { WorldFact.JonahIsInjured, false },
         { WorldFact.RelayDelivered, false },
         { WorldFact.CoolantActive, false }
+        ,{ WorldFact.PrototypeDanielHasKey, false }
+        ,{ WorldFact.PrototypeTheoDistracted, false }
+        ,{ WorldFact.PrototypeTheoWitnessedTheft, false }
+        ,{ WorldFact.PrototypeTheoReportedDaniel, false }
+        ,{ WorldFact.PrototypeRuthChasingDaniel, false }
+        ,{ WorldFact.PrototypeJonahInjured, false }
+        ,{ WorldFact.PrototypeRelayDelivered, false }
+        ,{ WorldFact.PrototypeMachineStable, false }
+        ,{ WorldFact.PrototypeMachineDestabilized, false }
     };
 
     public override void _Ready()

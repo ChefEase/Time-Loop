@@ -60,3 +60,5 @@ This describes the scope of this work, not a claim that the workspace contains n
 - [x] GitHub remote connected and documentation pushed to [ChefEase/Time-Loop](https://github.com/ChefEase/Time-Loop), branch `master`, on 2026-09-17. Repository visibility was not independently verified; confirm Private in GitHub settings if required.
 
 Next useful work is the paper session described in [16](16_PROTOTYPE_SPEC.md), while resolving the specific open fiction/route questions. Do not respond to an open gate by building a larger prototype.
+
+**Phase 10 expansion, 2026-09-19:** the user subsequently authorized implementation of the full bounded three-minute causal prototype in `main.tscn`. The implementation is covered by DEC-24 and its automated checks. Gate G remains OPEN: no unfamiliar-player result, causal-understanding result, or production authorization is implied.

@@ -1,45 +1,48 @@
-# Three-minute prototype: map blockout
+﻿# Three-minute causal prototype
 
-Phase 10 section 102 only, authorized 2026-09-19. This is a static greybox map, not the completed causal prototype. Stop here before Daniel's theft behavior. No external playtest or causal-understanding milestone has passed.
+This prototype runs directly from `scenes/core/main.tscn`, which is the configured main scene. `Prototype3Min.tscn` remains a thin compatibility entry point. The entire greybox chain is visible in one small map so it can be tested without loading another scene.
 
-## Run and walk around
+## Player controls
 
-Open `Prototype3Min.tscn` in Godot and press **F6** (Run Current Scene). Click the game viewport and use WASD/arrows. F5 still runs the existing Phase 8/9 main scene; it has not been replaced.
+- **WASD / arrow keys**: move Avery.
+- **E or Space**: interact with the nearby document or Theo.
+- **P**: pause or resume the simulation clock.
+- **1 / 2 / 3 / 4**: choose 1x, 2x, 5x or 10x clock speed.
+- **R**: reset the current loop.
+- **Tab**: toggle the observation panel when available.
+- **F1**: toggle the developer event log and clock controls.
+- **K / C / N**: learn, check or clear the temporary knowledge test fact.
 
-- Avery starts at the bottom left, Daniel at the key rack side, Theo above him, Ruth inside police, Jonah near the upper street, and Mara inside the machine room.
-- Enter police through its bottom doorway and the machine room through its top doorway.
-- Walk around the outside walls, through each entrance, past the key rack, and across the X intersection.
-- NPCs are intentionally stationary until later work. Avery can walk through them; NPC body blocking is excluded from this prototype.
-- E has no map interactions yet. The existing scene-local 180-second clock still triggers Phase 8's normal fade/reload; there is no failure or success state yet.
+The HUD explains the controls in-game. The clock is three minutes (180 seconds) and is intentionally accelerated only for developer testing; the simulation remains deterministic at normal speed.
 
-## Scene ownership
+## Default causal chain
 
-`Prototype3Min.tscn` contains the street, solid outer/building walls, floors, key-rack and machine placeholders, fixed overview camera, six name labels, 15 Marker2D route points, scene-local clock/world state, and static NavigationRegion2D polygon data. Both buildings are traversable interiors with doorways.
+1. Daniel walks to the key rack and takes the restricted key at about 00:40.
+2. Theo witnesses the theft if he is still at the observation point.
+3. Theo runs to the police station and reports Daniel.
+4. Ruth leaves the station, and Daniel switches to the escape route.
+5. Daniel and Jonah occupy the physical `CollisionTrigger` together; Jonah is injured and the relay is lost.
+6. The machine has no relay at 02:30 and destabilizes. At 03:00 the loop displays the failure outcome and resets.
 
-Markers: AveryStart, DanielStart, DanielKeyMarker, DanielNormalExit, DanielEscape01, DanielEscape02, TheoStart, TheoWatchMarker, TheoSearchMarker, PoliceEntrance, RuthStart, JonahStart, CollisionMarker, MachineEntrance, MaraStart.
+The collision is an Area2D overlap between Daniel and Jonah. It is not decided by checking whether Theo was distracted or whether Ruth is chasing.
 
-`GreyboxNpc.tscn` reuses the existing NpcController and NavigationAgent2D without a ScheduleRunner. Per-character NpcDefinition resources are embedded in the map. Avery reuses PlayerController with a small rectangle and interaction area. No existing player/NPC scene or shared controller was changed.
+## The one intervention
 
-Local collision masks: solid world on layer 1; Avery on layer 2 and NPCs on layer 4 (numeric bit 8). Both actor masks query only world layer 1. Existing interactable layer 3 (numeric bit 4) remains reserved. NPC avoidance is disabled. The navigation mesh leaves 12 pixels of clearance around solid walls for the 18-pixel NPC and 22-pixel player bodies.
+Approach Theo before 00:35 and press **E** or **Space**. Theo moves to the search marker and cannot witness the theft. The report, chase, escape route and collision then never occur; Jonah reaches the machine, Mara installs the relay, and the machine remains stable at 03:00. After 00:35 the interaction reports that it is too late.
 
-The navigation mesh is authored static scene data. If wall placement changes, update navigation geometry and rerun the checks. There is no runtime map generation. Key/machine rectangles are visual placeholders without physical blocking; the building walls are the obstacles under test.
+## What is reset and what persists
 
-The requested `docs/15_3_MINUTE_PROTOTYPE.md` does not exist. The actual [paper specification](../../../../docs/16_PROTOTYPE_SPEC.md) has different roles, timings, and interventions. This digital map follows the user's Phase 10 blockout request without adopting or rewriting that paper scenario. The named actors do not imply new canon story facts.
+Reloading `main.tscn` recreates the physical map, actor positions, NPC routes, key, relay, machine state and prototype world facts. `KnowledgeManager` is an Autoload, so the prototype observations `prototype.theo_reported_daniel` and `prototype.report_causes_chase` remain known across loop resets. They are cleared only by a new-game operation.
 
-## Validation, 2026-09-19
+## Automated checks
 
-- `dotnet build`: passed, zero errors; three pre-existing warnings (WorldState nullable context twice, Yarn JSON converter once). The first sandbox build could not access SDK/NuGet; the permitted retry passed.
-- Installed Godot 4.7.2 .NET headless check passed: all 225 ordered marker pairs have complete paths; each of five NPCs physically visits every marker with the existing controller.
-- Automated keyboard-driven Avery traversal visited every marker, including both interiors. Actual wall collision and passage through Daniel were checked.
-- Scene replacement restores Avery and all five NPCs, destroys the old map, and preserves KnowledgeManager.
-- OpenGL Compatibility rendered launch passed; captured viewport inspected for character names, entrances, map framing, and landmarks. No runtime errors appeared in either run.
-- A human free-play walkthrough is not claimed; automated input traversal and rendered inspection are the evidence. External playtesting, causal-chain behavior, and the overall Phase 10 gate remain pending.
-
-From `time-loop/`, replacing `Godot_console.exe` with the installed .NET console executable path:
+From `time-loop/`:
 
 ```text
-dotnet build
+dotnet build --no-restore
+Godot_console.exe --headless --path . --fixed-fps 60 --script res://tests/causal_prototype_check.gd
+Godot_console.exe --headless --path . --fixed-fps 60 --script res://tests/main_hud_check.gd
 Godot_console.exe --headless --path . --fixed-fps 60 --script res://tests/blockout_check.gd
 ```
 
-The test pauses only its test clock while checking routes to prevent the three-minute reset interrupting the long traversal. Normal gameplay remains at 180 seconds. For a rendered snapshot, run the same script without `--headless`, with `--rendering-method gl_compatibility -- --capture-blockout`; that mode writes `tests/blockout_preview.png` and exits without running movement assertions. The image is a temporary verification artifact, not a game asset.
+The causal test runs both branches through `main.tscn`: the untouched timeline must explode, and the Theo distraction timeline must deliver the relay and succeed. The HUD test verifies the visible timer, pause/speed controls, interaction prompt, knowledge persistence and loop reset. A human playtest is still required for the final Phase 10 gate.

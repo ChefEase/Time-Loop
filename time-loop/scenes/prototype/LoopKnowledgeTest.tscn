@@ -1,0 +1,64 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://bqtvnfpo6yosf" path="res://scenes/player/player.tscn" id="1_fgbdc"]
+[ext_resource type="PackedScene" path="res://scenes/ui/clock_hud.tscn" id="2_i4cec"]
+[ext_resource type="Script" uid="uid://dsjiyh2q4ip1l" path="res://scripts/debug/DebugClockControls.cs" id="3_2dmjg"]
+[ext_resource type="Script" uid="uid://3e0obwp3ix17" path="res://scripts/debug/WorldStateDebugTester.cs" id="4_b6u03"]
+[ext_resource type="PackedScene" path="res://scenes/interaction/test_door.tscn" id="5_door"]
+[ext_resource type="Script" uid="uid://dt0vakgiju27h" path="res://scripts/debug/EventBusDebugListener.cs" id="6_44pk5"]
+[ext_resource type="PackedScene" path="res://scenes/prototype/NpcScheduleTest.tscn" id="7_phv0v"]
+
+[ext_resource type="Script" path="res://scripts/world/WorldState.cs" id="world"]
+
+[ext_resource type="PackedScene" path="res://scenes/interaction/TestLoopClue.tscn" id="clue"]
+
+[ext_resource type="Script" path="res://scripts/debug/KnowledgeDebugTester.cs" id="knowledge_test"]
+[ext_resource type="PackedScene" path="res://scenes/prototype/SecretDocument.tscn" id="document"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13qdw"]
+size = Vector2(358, 61)
+
+[node name="LoopKnowledgeTest" type="Node2D" unique_id=125990229]
+position = Vector2(-51, -6)
+
+[node name="WorldState" type="Node" parent="."]
+script = ExtResource("world")
+
+[node name="NpcScheduleTest" parent="." unique_id=1650867057 instance=ExtResource("7_phv0v")]
+position = Vector2(0, 160)
+
+[node name="player" parent="." unique_id=413141208 instance=ExtResource("1_fgbdc")]
+position = Vector2(458, 378)
+
+[node name="wall" type="StaticBody2D" parent="." unique_id=1632547166]
+position = Vector2(455, 75)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall" unique_id=1692711993]
+position = Vector2(4, 87)
+shape = SubResource("RectangleShape2D_13qdw")
+
+[node name="DebugUI" type="CanvasLayer" parent="." unique_id=914635082]
+
+[node name="ClockHUD" parent="DebugUI" unique_id=2124736187 instance=ExtResource("2_i4cec")]
+
+[node name="DebugClockControls" type="Node" parent="." unique_id=1642268722]
+script = ExtResource("3_2dmjg")
+
+[node name="WorldStateDebugTester" type="Node" parent="." unique_id=1563539640]
+script = ExtResource("4_b6u03")
+
+[node name="TestDoor" parent="." unique_id=1976716101 instance=ExtResource("5_door")]
+position = Vector2(588, 378)
+
+[node name="EventBusDebugListener" type="Node" parent="." unique_id=726369416]
+script = ExtResource("6_44pk5")
+
+
+[node name="TestKey" parent="." instance=ExtResource("clue")]
+position = Vector2(300, 378)
+
+[node name="KnowledgeDebugTester" type="Node" parent="."]
+script = ExtResource("knowledge_test")
+
+[node name="SecretDocument" parent="." instance=ExtResource("document")]
+position = Vector2(458, 650)

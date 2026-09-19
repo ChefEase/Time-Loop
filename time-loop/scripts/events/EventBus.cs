@@ -8,6 +8,8 @@ public partial class EventBus : Node
 
     public event Action<DoorOpenedEvent>? DoorOpened;
     public event Action<ItemTakenEvent>? ItemTaken;
+    public event Action<PrototypeEvent, double, string>? Prototype;
+    public Godot.Collections.Array<int> PrototypeEventHistory { get; } = new();
 
     public override void _EnterTree()
     {
@@ -40,4 +42,13 @@ public partial class EventBus : Node
     {
         ItemTaken?.Invoke(eventData);
     }
+
+    public void Publish(PrototypeEvent eventId, double gameTime, string detail = "")
+    {
+        PrototypeEventHistory.Add((int)eventId);
+        GD.Print($"[PROTOTYPE {gameTime:000.0}] {eventId}{(string.IsNullOrEmpty(detail) ? "" : $" — {detail}")}");
+        Prototype?.Invoke(eventId, gameTime, detail);
+    }
+
+    public void ClearPrototypeHistory() => PrototypeEventHistory.Clear();
 }

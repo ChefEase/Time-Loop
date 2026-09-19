@@ -28,7 +28,7 @@ func release_input():
         Input.action_release(action)
 
 func run():
-    change_scene_to_file("res://scenes/prototype/three_minute/Prototype3Min.tscn")
+    change_scene_to_file("res://scenes/core/main.tscn")
     await scene_changed
     var scene = current_scene
     scene.get_node("GameClock").set_physics_process(false)

@@ -9,5 +9,16 @@ public enum WorldFact
     DanielHasKey,
     JonahIsInjured,
     RelayDelivered,
-    CoolantActive
+    CoolantActive,
+
+    // Three-minute causal prototype; all reset with the scene.
+    PrototypeDanielHasKey,
+    PrototypeTheoDistracted,
+    PrototypeTheoWitnessedTheft,
+    PrototypeTheoReportedDaniel,
+    PrototypeRuthChasingDaniel,
+    PrototypeJonahInjured,
+    PrototypeRelayDelivered,
+    PrototypeMachineStable,
+    PrototypeMachineDestabilized
 }

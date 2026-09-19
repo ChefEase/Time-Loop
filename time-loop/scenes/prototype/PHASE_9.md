@@ -1,6 +1,10 @@
 # Phase 9: persistent knowledge
 
+**Entry-point update:** Phase 10 now occupies `scenes/core/main.tscn`. For the Phase 9 keyboard/document checks below, open `scenes/prototype/LoopKnowledgeTest.tscn` and press F6. The test script has been updated to use that preserved room; its knowledge behavior is unchanged.
+
 Implemented under explicit user authorization on 2026-09-19. Automated acceptance passed; human visual/play acceptance remains pending. Gate G is OPEN and full production is not authorized.
+
+The Phase 10 prototype records `prototype.theo_reported_daniel` and `prototype.report_causes_chase` through this persistent manager. They survive loop reloads and are not save data or final story canon.
 
 ## Test directly in main.tscn
 

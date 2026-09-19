@@ -1,12 +1,16 @@
 # Phase 8: loop reset
 
+**Entry-point update:** the project main scene is now Phase 10's greybox map in `scenes/core/main.tscn`. The earlier Phase 8/9 fixtures remain in `scenes/prototype/LoopKnowledgeTest.tscn` (F6), also used by `PrototypeWorld.tscn` and the loop regression test.
+
 Phase 9 now centralizes the test secret as `KnowledgeFacts.SecretKnown` (`test.secret_known`) and adds K/C/N knowledge controls plus a document fixture. See [Phase 9](PHASE_9.md) for current controls; R still runs the same loop reset.
 
 Implemented under the user's bounded authorization on 2026-09-19. Gate G remains OPEN and full production remains unapproved. Automated checks pass; visual/manual acceptance is pending, so Phase 8 is not declared fully complete.
 
+Phase 10 reuses this reset path from `main.tscn`: physical actors, objects, clock and prototype facts reload while Autoload managers survive. See the Phase 10 README for causal-chain verification.
+
 ## Configuration
 
-Open `time-loop/project.godot` and run the main scene (F5). Main Scene is already configured as `res://scenes/prototype/PrototypeWorld.tscn`, which inherits the existing main scene to preserve its layout.
+Open `time-loop/project.godot` and run the main scene (F5). Main Scene is configured as `res://scenes/core/main.tscn`. The preserved Phase 8/9 fixture is `res://scenes/prototype/LoopKnowledgeTest.tscn`.
 
 Project Settings > Globals > Autoload already contains:
 

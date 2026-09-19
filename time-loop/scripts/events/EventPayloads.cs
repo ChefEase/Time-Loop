@@ -11,3 +11,20 @@ public readonly record struct ItemTakenEvent(
     string PreviousOwnerId,
     double GameTime
 );
+
+public enum PrototypeEvent
+{
+    PrototypeLoopStarted,
+    KeyStolen,
+    TheftWitnessed,
+    TheoDistracted,
+    TheftReported,
+    PoliceChaseStarted,
+    CourierCollision,
+    CourierInjured,
+    RelayDelivered,
+    MachineDestabilized,
+    MachineStabilized,
+    PrototypeExplosion,
+    PrototypeSuccess
+}

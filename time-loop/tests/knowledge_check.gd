@@ -38,13 +38,13 @@ func press_key(code, echo = false):
     for i in range(3): await process_frame
 
 func run():
-    change_scene_to_file("res://scenes/core/main.tscn")
+    change_scene_to_file("res://scenes/prototype/LoopKnowledgeTest.tscn")
     await scene_changed
     var knowledge = root.get_node("KnowledgeManager")
     var manager = root.get_node("LoopManager")
     knowledge.connect("KnowledgeLearned", func(id): learned_events.append(id))
     await press_key(KEY_C)
-    if not check(not knowledge.Knows(SECRET) and knowledge.GetKnownFactCount() == 0, "Fresh main starts with no knowledge"): return
+    if not check(not knowledge.Knows(SECRET) and knowledge.GetKnownFactCount() == 0, "Fresh test room starts with no knowledge"): return
     if not check(not knowledge.Learn("") and not knowledge.Learn("   "), "Empty IDs rejected (two expected warnings)"): return
     await press_key(KEY_K, true)
     if not check(knowledge.GetKnownFactCount() == 0, "Repeated key echo ignored"): return
@@ -57,7 +57,7 @@ func run():
     await press_key(KEY_R)
     while manager.IsResetting: await process_frame
     await press_key(KEY_C)
-    if not check(not is_instance_valid(old_world) and manager.LoopNumber == 2 and knowledge.Knows(SECRET), "R reloads main once and preserves knowledge"): return
+    if not check(not is_instance_valid(old_world) and manager.LoopNumber == 2 and knowledge.Knows(SECRET), "R reloads test room once and preserves knowledge"): return
     await press_key(KEY_N)
     await press_key(KEY_C)
     if not check(knowledge.GetKnownFactCount() == 0 and not knowledge.Knows(SECRET) and manager.LoopNumber == 2, "N clears knowledge only"): return
@@ -83,5 +83,5 @@ func run():
     if not check(knowledge.Learn("event.daniel_stole_key") and knowledge.GetKnownFactCount() == 2, "Distinct IDs stored independently"): return
     await press_key(KEY_N)
     if not check(knowledge.GetKnownFactCount() == 0 and learned_events.size() == 3, "Clear removes every fact without learned events"): return
-    print("PASS: Phase 9 acceptance through main.tscn keyboard and physical interactions")
+    print("PASS: Phase 9 acceptance through LoopKnowledgeTest.tscn keyboard and physical interactions")
     quit(0)

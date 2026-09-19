@@ -1,8 +1,10 @@
 # Phase 7: one NPC schedule
 
-The separate [Phase 10 map blockout](three_minute/README.md) runs via `three_minute/Prototype3Min.tscn` (F6). It adds no causal behavior yet.
+Current entry point: `scenes/core/main.tscn` now contains the Phase 10 greybox map (F5 or F6). The earlier loop/knowledge room is preserved as `LoopKnowledgeTest.tscn` (F6). Earlier phase instructions below describe their original setup; use the preserved room for those checks.
 
-Phase 8 now configures `PrototypeWorld.tscn` as the main scene. See [Phase 8 setup and tests](PHASE_8.md).
+The [Phase 10 causal prototype](three_minute/README.md) runs directly via `scenes/core/main.tscn` (F5/F6). `three_minute/Prototype3Min.tscn` remains a compatibility entry point. It includes the deterministic Daniel/Theo/Ruth/Jonah/Mara chain, one Theo intervention, machine failure/success outcomes, reset behavior, persistent prototype observations, and a developer event log.
+
+Phase 8/9 fixtures remain available through `LoopKnowledgeTest.tscn` and `PrototypeWorld.tscn`; the configured project main scene is now `scenes/core/main.tscn`. See [Phase 8 setup and tests](PHASE_8.md).
 
 For K/C/R/N knowledge tests and the secret document directly in `main.tscn` (F6), see [Phase 9 setup and tests](PHASE_9.md).
 
