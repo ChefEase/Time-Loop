@@ -2,6 +2,7 @@ using Godot;
 
 public partial class PlayerController : CharacterBody2D
 {
+	public bool DialogueLocked { get; set; }
 	[Export]
 	public float MoveSpeed = 180f;
 
@@ -14,6 +15,11 @@ public partial class PlayerController : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (DialogueLocked)
+		{
+			Velocity = Vector2.Zero;
+			return;
+		}
 		Vector2 inputDirection = Input.GetVector(
 			"move_left",
 			"move_right",

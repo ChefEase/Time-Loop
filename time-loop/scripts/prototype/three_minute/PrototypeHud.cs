@@ -12,6 +12,7 @@ public partial class PrototypeHud : CanvasLayer
     private Camera2D _camera;
     private PlayerController _player;
     private SecretDocument _document;
+    private Area2D _danielDialogue;
     private Vector2 _lastSize;
     private ProgressBar _timeline;
     private Vector2 _panelHeights;
@@ -30,6 +31,7 @@ public partial class PrototypeHud : CanvasLayer
         _camera = GetParent().GetNode<Camera2D>("Camera2D");
         _player = GetParent().GetNode<PlayerController>("Player");
         _document = GetParent().GetNode<SecretDocument>("SecretDocument");
+        _danielDialogue = GetParent().GetNode<Area2D>("NPCs/Daniel/DialogueArea");
         _timeline = GetNode<ProgressBar>("Screen/Top/Rows/Timeline");
         _eventLog = GetNode<Label>("Screen/EventLog/Rows/Text");
         _causalFeed = GetNode<Label>("Screen/CausalFeed/Rows/Text");
@@ -68,8 +70,10 @@ public partial class PrototypeHud : CanvasLayer
         _knowledge.Text = KnowledgeManager.Instance.Knows(KnowledgeFacts.SecretKnown) ? "MEMORY  /  Field note KNOWN · retained across loops" : "MEMORY  /  Field note not learned";
         bool nearby = !_document.InspectedThisLoop && _player.GetNode<Area2D>("InteractionArea").OverlapsArea(_document);
         bool nearTheo = _player.GetNode<Area2D>("InteractionArea").OverlapsArea(GetParent().GetNode<Area2D>("NPCs/Theo/InteractionArea"));
+        bool nearDaniel = _player.GetNode<Area2D>("InteractionArea").OverlapsArea(_danielDialogue);
         _prompt.Text = nearTheo && !WorldState.Instance.GetFact(WorldFact.PrototypeTheoDistracted) && clock.CurrentTime < 35
             ? "[E / Space] Ask Theo to search nearby"
+            : nearDaniel ? "[E / Space] Talk to Daniel"
             : nearby ? "[E / Space] Read field note" : _document.InspectedThisLoop
             ? "The note is gone. What you learned remains."
             : "Explore the block. Find the field note near the crossing.";

@@ -1,0 +1,25 @@
+title: DanielTest
+---
+Daniel: What are you staring at?
+
+-> Ask about Mercer.
+    Avery: Have you seen Dr. Mercer?
+    Daniel: Maybe.
+    <<jump DanielTest>>
+
+-> Tell me what happened.
+    Avery: Tell me what you took from Mercer.
+    <<learn "event.daniel_stole_key">>
+    Daniel: You have no idea what you're talking about.
+    <<jump DanielTest>>
+
+<<if knows("event.daniel_stole_key")>>
+    -> Confront him about the key.
+        Avery: I know you stole Mercer's brass key.
+        Daniel: ...Who told you that?
+        <<jump DanielTest>>
+<<endif>>
+
+-> Leave.
+    Avery: Never mind.
+===

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://addons/YarnSpinner-Godot/Scenes/DefaultDialogueSystem.tscn" id="1_default"]
+[ext_resource type="Script" path="res://scripts/dialogue/PrototypeDialogueSystem.cs" id="2_script"]
+
+[node name="DialogueSystem" type="CanvasLayer"]
+script = ExtResource("2_script")
+
+[node name="DefaultDialogueSystem" parent="." instance=ExtResource("1_default")]

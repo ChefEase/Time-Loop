@@ -18,6 +18,12 @@ public partial class NpcController : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        if (DialogueManager.IsDialogueActive)
+        {
+            StopMoving();
+            return;
+        }
+
         if (!_hasMovementTarget)
             return;
 
