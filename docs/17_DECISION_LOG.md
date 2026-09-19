@@ -1,11 +1,11 @@
-# Decision log
+﻿# Decision log
 
 **Revision:** v0.2 draft, 2026-09-17. **Authority:** source v0.1 remains canon. Proposals below are reviewable design work, not claims that the author approved changed fiction.
 
 | ID | Status | Decision / proposal | Reason / affected audit |
 | --- | --- | --- | --- |
 | DEC-01 | Applied housekeeping | Use current `Time loop` workspace as project home | Authorized alternative to `C:\GameDev\815`; avoid a duplicate nested project |
-| DEC-02 | Applied housekeeping | Normalize obvious ranges and dimensions | 3,000–5,000 population; 6–10 interiors; 640 × 360 resolution |
+| DEC-02 | Applied housekeeping | Normalize obvious ranges and dimensions | 3,000â€“5,000 population; 6â€“10 interiors; 640 Ã— 360 resolution |
 | DEC-03 | Proposed | Theo observes 8:03:20, departs 8:03:45 | AUD-01; preserves main timeline |
 | DEC-04 | Proposed | Adrian enters alley before Mercer; retains stolen key/ledger after shooting | AUD-02/03; consistent pursuit and ownership |
 | DEC-05 | Proposed | Jonah manifest stop; handoff 8:05:30; 120-sec installation + 30-sec test | AUD-04/06; gives delivery concrete duration |
@@ -27,11 +27,11 @@
 
 ## Highest-priority remaining decisions
 
-**DEC-23 — Authorized map-only blockout, 2026-09-19:** user explicitly limited Phase 10's immediate assignment to section 102: branch, greybox geometry, six named actor placements, route markers, movement/navigation verification, commit/push, then stop. The digital layout differs from the proposed paper spec in document 16; no paper timings, role assignments, or interventions are silently adopted or overwritten. See [blockout validation](../time-loop/scenes/prototype/three_minute/README.md). Full causal behavior and external human acceptance remain pending.
+**DEC-23 â€” Authorized map-only blockout, 2026-09-19:** user explicitly limited Phase 10's immediate assignment to section 102: branch, greybox geometry, six named actor placements, route markers, movement/navigation verification, commit/push, then stop. The digital layout differs from the proposed paper spec in document 16; no paper timings, role assignments, or interventions are silently adopted or overwritten. See [blockout validation](../time-loop/scenes/prototype/three_minute/README.md). Full causal behavior and external human acceptance were later completed under DEC-24 and DEC-25.
 
-**DEC-22 — Authorized bounded implementation, 2026-09-19:** user requested Phase 9 persistent binary knowledge and testing through `main.tscn`. Extend the existing Autoload, reserve centralized IDs, emit learned notifications once, and add debug/physical-document tests. Preserve Phase 8's real reset path and exclude saving, notebook, Yarn integration, and advanced knowledge states. The [Phase 9 record](../time-loop/scenes/prototype/PHASE_9.md) separates automated evidence from pending human acceptance. Gate G and proposed story rules are unchanged.
+**DEC-22 â€” Authorized bounded implementation, 2026-09-19:** user requested Phase 9 persistent binary knowledge and testing through `main.tscn`. Extend the existing Autoload, reserve centralized IDs, emit learned notifications once, and add debug/physical-document tests. Preserve Phase 8's real reset path and exclude saving, notebook, Yarn integration, and advanced knowledge states. The [Phase 9 record](../time-loop/scenes/prototype/PHASE_9.md) separates automated evidence from pending human acceptance. Gate G and proposed story rules are unchanged.
 
-**DEC-21 — Authorized bounded implementation, 2026-09-19:** user requested Phase 8 in the existing `time-loop/` project: three-minute scene reload, persistent knowledge/loop count, fade, and reset verification. This is an explicit exception to the documents-only boundary for this task, not adoption of proposed story rules or closure of Gate G. See the [implementation and verification record](../time-loop/scenes/prototype/PHASE_8.md). Human visual acceptance remains pending.
+**DEC-21 â€” Authorized bounded implementation, 2026-09-19:** user requested Phase 8 in the existing `time-loop/` project: three-minute scene reload, persistent knowledge/loop count, fade, and reset verification. This is an explicit exception to the documents-only boundary for this task, not adoption of proposed story rules or closure of Gate G. See the [implementation and verification record](../time-loop/scenes/prototype/PHASE_8.md). Human visual acceptance remains pending.
 
 1. Adopt or revise the shutdown/holding-mode physical rules, including early cuts and 8:15 failure behavior.
 2. Resolve Simon/Lydia chronology without weakening the tape's emotional reveal.
@@ -40,6 +40,7 @@
 
 Keep proposed choices explicit when revising. After adopting a proposal, update its owning document and rerun affected paper cases; do not just change the status in this table.
 
-**DEC-24 — Authorized bounded Phase 10 implementation, 2026-09-19:** the user expanded the earlier map-only authorization to implement the complete three-minute software prototype in `main.tscn`: deterministic Daniel theft, physical Theo witness/intervention, report-driven Ruth chase, route-dependent Daniel/Jonah Area2D collision, relay delivery, machine stability/failure, loop reset, persistent prototype observations, HUD controls, and an event log. This remains a greybox validation build; it does not add save/notebook/dialogue systems, adopt paper scenario details as canon, or close Gate G. Automated checks pass; unfamiliar-player acceptance remains open.
+**DEC-24 â€” Authorized bounded Phase 10 implementation, 2026-09-19:** the user expanded the earlier map-only authorization to implement the complete three-minute software prototype in `main.tscn`: deterministic Daniel theft, physical Theo witness/intervention, report-driven Ruth chase, route-dependent Daniel/Jonah Area2D collision, relay delivery, machine stability/failure, loop reset, persistent prototype observations, HUD controls, and an event log. This remains a greybox validation build; it does not add save/notebook/dialogue systems, adopt paper scenario details as canon, or close Gate G. Automated checks pass; unfamiliar-player acceptance was later recorded as passed under DEC-25.
 
-**DEC-25 — Phase 10 human playtest recorded, 2026-09-19:** the user reports completing the `main.tscn` walkthrough and confirming that the tester understood the causal chain. The software prototype acceptance is recorded as passed. Gate G remains open because it also covers the broader paper and canon validation items listed in `docs/18_PREPRODUCTION_GATES.md`.
+**DEC-25 â€” Phase 10 human playtest recorded, 2026-09-19:** the user reports completing the `main.tscn` walkthrough and confirming that the tester understood the causal chain. The software prototype acceptance is recorded as passed. Gate G remains open because it also covers the broader paper and canon validation items listed in `docs/18_PREPRODUCTION_GATES.md`.
+
