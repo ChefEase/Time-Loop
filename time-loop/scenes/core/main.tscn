@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" path="res://scenes/dialogue/PrototypeDialogueSystem.tscn" id="dialogue_system"]
 [ext_resource type="Script" path="res://scripts/dialogue/DialogueManager.cs" id="dialogue_manager"]
 [ext_resource type="Script" path="res://scripts/prototype/three_minute/PrototypeDanielDialogue.cs" id="daniel_dialogue"]
+[ext_resource type="PackedScene" path="res://scenes/world/CentralGreywick.tscn" id="central_greywick"]
+[ext_resource type="Script" path="res://scripts/world/CentralGreywickPreview.cs" id="central_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/notebook/NotebookUI.tscn" id="notebook_ui"]
 [sub_resource type="NavigationPolygon" id="navigation"]
 vertices = PackedVector2Array(52, 52, 148, 52, 148, 68, 52, 68, 148, 108, 52, 108, 148, 132, 52, 132, 148, 268, 52, 268, 148, 332, 52, 332, 148, 388, 52, 388, 148, 428, 52, 428, 148, 452, 52, 452, 148, 668, 52, 668, 148, 732, 52, 732, 148, 748, 52, 748, 188, 52, 188, 68, 188, 332, 188, 388, 188, 428, 188, 452, 188, 668, 188, 732, 188, 748, 212, 52, 212, 68, 212, 332, 212, 388, 212, 428, 212, 452, 212, 668, 212, 732, 212, 748, 332, 52, 332, 68, 212, 132, 332, 132, 332, 268, 212, 268, 332, 332, 332, 388, 332, 428, 332, 452, 332, 668, 332, 732, 332, 748, 388, 52, 388, 68, 388, 132, 388, 268, 388, 332, 388, 388, 388, 428, 388, 452, 388, 668, 388, 732, 388, 748, 468, 52, 468, 68, 468, 132, 468, 268, 468, 332, 468, 388, 468, 428, 468, 452, 468, 668, 468, 732, 468, 748, 492, 52, 492, 68, 492, 332, 492, 388, 492, 428, 492, 452, 492, 668, 492, 732, 492, 748, 532, 52, 532, 68, 532, 332, 532, 388, 532, 428, 532, 452, 532, 668, 532, 732, 532, 748, 748, 52, 748, 68, 748, 108, 532, 108, 748, 132, 532, 132, 748, 268, 532, 268, 748, 332, 748, 388, 748, 428, 748, 452, 748, 668, 748, 732, 748, 748, 788, 52, 788, 68, 788, 108, 788, 132, 788, 268, 788, 332, 788, 388, 788, 732, 788, 748, 812, 52, 812, 68, 812, 108, 812, 132, 812, 268, 812, 332, 812, 388, 812, 732, 812, 748, 852, 52, 852, 68, 852, 108, 852, 132, 852, 268, 852, 332, 852, 388, 812, 452, 852, 452, 852, 668, 812, 668, 852, 732, 852, 748, 908, 52, 908, 68, 908, 108, 908, 132, 908, 268, 908, 332, 908, 388, 908, 428, 852, 428, 908, 452, 908, 668, 908, 732, 908, 748, 988, 52, 988, 68, 988, 108, 988, 132, 988, 268, 988, 332, 988, 388, 988, 452, 988, 668, 988, 732, 988, 748, 1012, 52, 1012, 68, 1012, 108, 1012, 132, 1012, 268, 1012, 332, 1012, 388, 1012, 732, 1012, 748, 1052, 52, 1052, 68, 1052, 108, 1052, 132, 1052, 268, 1052, 332, 1052, 388, 1052, 732, 1052, 748, 1068, 52, 1068, 68, 1068, 108, 1068, 132, 1068, 268, 1068, 332, 1068, 388, 1068, 428, 1052, 428, 1068, 452, 1052, 452, 1068, 668, 1052, 668, 1068, 732, 1068, 748)
@@ -432,6 +434,18 @@ shape = SubResource("collision_area")
 [node name="MapVisual" type="Node2D" parent="."]
 z_index = -1
 script = ExtResource("map_visual")
+
+[node name="CentralGreywickBlockout" parent="." instance=ExtResource("central_greywick")]
+visible = false
+
+[node name="Player" parent="CentralGreywickBlockout" index="1"]
+visible = false
+
+[node name="Camera2D" parent="CentralGreywickBlockout" index="2"]
+enabled = false
+
+[node name="CentralGreywickPreview" type="Node" parent="."]
+script = ExtResource("central_preview")
 
 [node name="NPCs" type="Node2D" parent="."]
 
