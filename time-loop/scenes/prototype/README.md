@@ -1,5 +1,7 @@
 # Phase 7: one NPC schedule
 
+The separate [Phase 10 map blockout](three_minute/README.md) runs via `three_minute/Prototype3Min.tscn` (F6). It adds no causal behavior yet.
+
 Phase 8 now configures `PrototypeWorld.tscn` as the main scene. See [Phase 8 setup and tests](PHASE_8.md).
 
 For K/C/R/N knowledge tests and the secret document directly in `main.tscn` (F6), see [Phase 9 setup and tests](PHASE_9.md).

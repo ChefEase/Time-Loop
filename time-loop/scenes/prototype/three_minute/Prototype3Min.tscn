@@ -1,0 +1,509 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/prototype/three_minute/GreyboxNpc.tscn" id="npc"]
+[ext_resource type="Script" path="res://scripts/player/PlayerController.cs" id="player"]
+[ext_resource type="Script" path="res://scripts/npc/NpcDefinition.cs" id="definition"]
+[ext_resource type="PackedScene" path="res://scenes/core/game_clock.tscn" id="clock"]
+[ext_resource type="Script" path="res://scripts/world/WorldState.cs" id="world"]
+
+[sub_resource type="NavigationPolygon" id="navigation"]
+vertices = PackedVector2Array(52, 52, 148, 52, 148, 68, 52, 68, 148, 108, 52, 108, 148, 132, 52, 132, 148, 268, 52, 268, 148, 332, 52, 332, 148, 388, 52, 388, 148, 428, 52, 428, 148, 452, 52, 452, 148, 668, 52, 668, 148, 732, 52, 732, 148, 748, 52, 748, 188, 52, 188, 68, 188, 332, 188, 388, 188, 428, 188, 452, 188, 668, 188, 732, 188, 748, 212, 52, 212, 68, 212, 332, 212, 388, 212, 428, 212, 452, 212, 668, 212, 732, 212, 748, 332, 52, 332, 68, 212, 132, 332, 132, 332, 268, 212, 268, 332, 332, 332, 388, 332, 428, 332, 452, 332, 668, 332, 732, 332, 748, 388, 52, 388, 68, 388, 132, 388, 268, 388, 332, 388, 388, 388, 428, 388, 452, 388, 668, 388, 732, 388, 748, 468, 52, 468, 68, 468, 132, 468, 268, 468, 332, 468, 388, 468, 428, 468, 452, 468, 668, 468, 732, 468, 748, 492, 52, 492, 68, 492, 332, 492, 388, 492, 428, 492, 452, 492, 668, 492, 732, 492, 748, 532, 52, 532, 68, 532, 332, 532, 388, 532, 428, 532, 452, 532, 668, 532, 732, 532, 748, 748, 52, 748, 68, 748, 108, 532, 108, 748, 132, 532, 132, 748, 268, 532, 268, 748, 332, 748, 388, 748, 428, 748, 452, 748, 668, 748, 732, 748, 748, 788, 52, 788, 68, 788, 108, 788, 132, 788, 268, 788, 332, 788, 388, 788, 732, 788, 748, 812, 52, 812, 68, 812, 108, 812, 132, 812, 268, 812, 332, 812, 388, 812, 732, 812, 748, 852, 52, 852, 68, 852, 108, 852, 132, 852, 268, 852, 332, 852, 388, 812, 452, 852, 452, 852, 668, 812, 668, 852, 732, 852, 748, 908, 52, 908, 68, 908, 108, 908, 132, 908, 268, 908, 332, 908, 388, 908, 428, 852, 428, 908, 452, 908, 668, 908, 732, 908, 748, 988, 52, 988, 68, 988, 108, 988, 132, 988, 268, 988, 332, 988, 388, 988, 452, 988, 668, 988, 732, 988, 748, 1012, 52, 1012, 68, 1012, 108, 1012, 132, 1012, 268, 1012, 332, 1012, 388, 1012, 732, 1012, 748, 1052, 52, 1052, 68, 1052, 108, 1052, 132, 1052, 268, 1052, 332, 1052, 388, 1052, 732, 1052, 748, 1068, 52, 1068, 68, 1068, 108, 1068, 132, 1068, 268, 1068, 332, 1068, 388, 1068, 428, 1052, 428, 1068, 452, 1052, 452, 1068, 668, 1052, 668, 1068, 732, 1068, 748)
+polygons = [PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 8, 9), PackedInt32Array(9, 8, 10, 11), PackedInt32Array(11, 10, 12, 13), PackedInt32Array(13, 12, 14, 15), PackedInt32Array(15, 14, 16, 17), PackedInt32Array(17, 16, 18, 19), PackedInt32Array(19, 18, 20, 21), PackedInt32Array(21, 20, 22, 23), PackedInt32Array(1, 24, 25, 2), PackedInt32Array(10, 26, 27, 12), PackedInt32Array(12, 27, 28, 14), PackedInt32Array(14, 28, 29, 16), PackedInt32Array(16, 29, 30, 18), PackedInt32Array(18, 30, 31, 20), PackedInt32Array(20, 31, 32, 22), PackedInt32Array(24, 33, 34, 25), PackedInt32Array(26, 35, 36, 27), PackedInt32Array(27, 36, 37, 28), PackedInt32Array(28, 37, 38, 29), PackedInt32Array(29, 38, 39, 30), PackedInt32Array(30, 39, 40, 31), PackedInt32Array(31, 40, 41, 32), PackedInt32Array(33, 42, 43, 34), PackedInt32Array(44, 45, 46, 47), PackedInt32Array(35, 48, 49, 36), PackedInt32Array(36, 49, 50, 37), PackedInt32Array(37, 50, 51, 38), PackedInt32Array(38, 51, 52, 39), PackedInt32Array(39, 52, 53, 40), PackedInt32Array(40, 53, 54, 41), PackedInt32Array(42, 55, 56, 43), PackedInt32Array(45, 57, 58, 46), PackedInt32Array(46, 58, 59, 48), PackedInt32Array(48, 59, 60, 49), PackedInt32Array(49, 60, 61, 50), PackedInt32Array(50, 61, 62, 51), PackedInt32Array(51, 62, 63, 52), PackedInt32Array(52, 63, 64, 53), PackedInt32Array(53, 64, 65, 54), PackedInt32Array(55, 66, 67, 56), PackedInt32Array(57, 68, 69, 58), PackedInt32Array(59, 70, 71, 60), PackedInt32Array(60, 71, 72, 61), PackedInt32Array(61, 72, 73, 62), PackedInt32Array(62, 73, 74, 63), PackedInt32Array(63, 74, 75, 64), PackedInt32Array(64, 75, 76, 65), PackedInt32Array(66, 77, 78, 67), PackedInt32Array(70, 79, 80, 71), PackedInt32Array(71, 80, 81, 72), PackedInt32Array(72, 81, 82, 73), PackedInt32Array(73, 82, 83, 74), PackedInt32Array(74, 83, 84, 75), PackedInt32Array(75, 84, 85, 76), PackedInt32Array(77, 86, 87, 78), PackedInt32Array(79, 88, 89, 80), PackedInt32Array(80, 89, 90, 81), PackedInt32Array(81, 90, 91, 82), PackedInt32Array(82, 91, 92, 83), PackedInt32Array(83, 92, 93, 84), PackedInt32Array(84, 93, 94, 85), PackedInt32Array(86, 95, 96, 87), PackedInt32Array(87, 96, 97, 98), PackedInt32Array(98, 97, 99, 100), PackedInt32Array(100, 99, 101, 102), PackedInt32Array(102, 101, 103, 88), PackedInt32Array(88, 103, 104, 89), PackedInt32Array(89, 104, 105, 90), PackedInt32Array(90, 105, 106, 91), PackedInt32Array(91, 106, 107, 92), PackedInt32Array(92, 107, 108, 93), PackedInt32Array(93, 108, 109, 94), PackedInt32Array(95, 110, 111, 96), PackedInt32Array(96, 111, 112, 97), PackedInt32Array(97, 112, 113, 99), PackedInt32Array(99, 113, 114, 101), PackedInt32Array(101, 114, 115, 103), PackedInt32Array(103, 115, 116, 104), PackedInt32Array(108, 117, 118, 109), PackedInt32Array(110, 119, 120, 111), PackedInt32Array(111, 120, 121, 112), PackedInt32Array(112, 121, 122, 113), PackedInt32Array(113, 122, 123, 114), PackedInt32Array(114, 123, 124, 115), PackedInt32Array(115, 124, 125, 116), PackedInt32Array(117, 126, 127, 118), PackedInt32Array(119, 128, 129, 120), PackedInt32Array(120, 129, 130, 121), PackedInt32Array(121, 130, 131, 122), PackedInt32Array(122, 131, 132, 123), PackedInt32Array(123, 132, 133, 124), PackedInt32Array(124, 133, 134, 125), PackedInt32Array(135, 136, 137, 138), PackedInt32Array(126, 139, 140, 127), PackedInt32Array(128, 141, 142, 129), PackedInt32Array(129, 142, 143, 130), PackedInt32Array(130, 143, 144, 131), PackedInt32Array(131, 144, 145, 132), PackedInt32Array(132, 145, 146, 133), PackedInt32Array(133, 146, 147, 134), PackedInt32Array(134, 147, 148, 149), PackedInt32Array(149, 148, 150, 136), PackedInt32Array(136, 150, 151, 137), PackedInt32Array(139, 152, 153, 140), PackedInt32Array(141, 154, 155, 142), PackedInt32Array(142, 155, 156, 143), PackedInt32Array(143, 156, 157, 144), PackedInt32Array(144, 157, 158, 145), PackedInt32Array(145, 158, 159, 146), PackedInt32Array(146, 159, 160, 147), PackedInt32Array(150, 161, 162, 151), PackedInt32Array(152, 163, 164, 153), PackedInt32Array(154, 165, 166, 155), PackedInt32Array(155, 166, 167, 156), PackedInt32Array(156, 167, 168, 157), PackedInt32Array(157, 168, 169, 158), PackedInt32Array(158, 169, 170, 159), PackedInt32Array(159, 170, 171, 160), PackedInt32Array(163, 172, 173, 164), PackedInt32Array(165, 174, 175, 166), PackedInt32Array(166, 175, 176, 167), PackedInt32Array(167, 176, 177, 168), PackedInt32Array(168, 177, 178, 169), PackedInt32Array(169, 178, 179, 170), PackedInt32Array(170, 179, 180, 171), PackedInt32Array(172, 181, 182, 173), PackedInt32Array(174, 183, 184, 175), PackedInt32Array(175, 184, 185, 176), PackedInt32Array(176, 185, 186, 177), PackedInt32Array(177, 186, 187, 178), PackedInt32Array(178, 187, 188, 179), PackedInt32Array(179, 188, 189, 180), PackedInt32Array(180, 189, 190, 191), PackedInt32Array(191, 190, 192, 193), PackedInt32Array(193, 192, 194, 195), PackedInt32Array(195, 194, 196, 181), PackedInt32Array(181, 196, 197, 182)]
+agent_radius = 12.0
+
+[sub_resource type="RectangleShape2D" id="player_body"]
+size = Vector2(22, 22)
+
+[sub_resource type="CircleShape2D" id="interaction"]
+radius = 40.0
+
+[sub_resource type="RectangleShape2D" id="shape_North"]
+size = Vector2(1120, 40)
+
+[sub_resource type="RectangleShape2D" id="shape_South"]
+size = Vector2(1120, 40)
+
+[sub_resource type="RectangleShape2D" id="shape_West"]
+size = Vector2(40, 720)
+
+[sub_resource type="RectangleShape2D" id="shape_East"]
+size = Vector2(40, 720)
+
+[sub_resource type="RectangleShape2D" id="shape_PoliceNorth"]
+size = Vector2(360, 40)
+
+[sub_resource type="RectangleShape2D" id="shape_PoliceWest"]
+size = Vector2(40, 200)
+
+[sub_resource type="RectangleShape2D" id="shape_PoliceEast"]
+size = Vector2(40, 200)
+
+[sub_resource type="RectangleShape2D" id="shape_PoliceSouthWest"]
+size = Vector2(120, 40)
+
+[sub_resource type="RectangleShape2D" id="shape_PoliceSouthEast"]
+size = Vector2(80, 40)
+
+[sub_resource type="RectangleShape2D" id="shape_MachineNorthWest"]
+size = Vector2(80, 40)
+
+[sub_resource type="RectangleShape2D" id="shape_MachineNorthEast"]
+size = Vector2(120, 40)
+
+[sub_resource type="RectangleShape2D" id="shape_MachineWest"]
+size = Vector2(40, 280)
+
+[sub_resource type="RectangleShape2D" id="shape_MachineEast"]
+size = Vector2(40, 280)
+
+[sub_resource type="RectangleShape2D" id="shape_MachineSouth"]
+size = Vector2(200, 40)
+
+[sub_resource type="Resource" id="def_Daniel"]
+script = ExtResource("definition")
+Id = &"prototype_daniel"
+DisplayName = "Daniel"
+DefaultSpeed = 80.0
+
+[sub_resource type="Resource" id="def_Theo"]
+script = ExtResource("definition")
+Id = &"prototype_theo"
+DisplayName = "Theo"
+DefaultSpeed = 80.0
+
+[sub_resource type="Resource" id="def_Ruth"]
+script = ExtResource("definition")
+Id = &"prototype_ruth"
+DisplayName = "Ruth"
+DefaultSpeed = 80.0
+
+[sub_resource type="Resource" id="def_Jonah"]
+script = ExtResource("definition")
+Id = &"prototype_jonah"
+DisplayName = "Jonah"
+DefaultSpeed = 80.0
+
+[sub_resource type="Resource" id="def_Mara"]
+script = ExtResource("definition")
+Id = &"prototype_mara"
+DisplayName = "Mara"
+DefaultSpeed = 80.0
+
+[node name="Prototype3Min" type="Node2D"]
+
+[node name="GameClock" parent="." instance=ExtResource("clock")]
+
+[node name="WorldState" type="Node" parent="."]
+script = ExtResource("world")
+
+[node name="WorldGeometry" type="Node2D" parent="."]
+
+[node name="Ground" type="Polygon2D" parent="WorldGeometry"]
+polygon = PackedVector2Array(0, 0, 1120, 0, 1120, 800, 0, 800)
+color = Color(0.12, 0.15, 0.17, 1)
+
+[node name="Street" type="Polygon2D" parent="WorldGeometry"]
+polygon = PackedVector2Array(52, 340, 1068, 340, 1068, 640, 52, 640)
+color = Color(0.22, 0.24, 0.25, 1)
+
+[node name="PoliceFloor" type="Polygon2D" parent="WorldGeometry"]
+polygon = PackedVector2Array(200, 120, 480, 120, 480, 280, 200, 280)
+color = Color(0.18, 0.25, 0.3, 1)
+
+[node name="MachineFloor" type="Polygon2D" parent="WorldGeometry"]
+polygon = PackedVector2Array(800, 440, 1000, 440, 1000, 680, 800, 680)
+color = Color(0.23, 0.27, 0.22, 1)
+
+[node name="PoliceSign" type="Label" parent="WorldGeometry"]
+offset_left = 260.0
+offset_top = 125.0
+offset_right = 500.0
+offset_bottom = 151.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 22
+text = "POLICE"
+
+[node name="MachineSign" type="Label" parent="WorldGeometry"]
+offset_left = 820.0
+offset_top = 620.0
+offset_right = 1060.0
+offset_bottom = 646.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 20
+text = "MACHINE ROOM"
+
+[node name="StreetSign" type="Label" parent="WorldGeometry"]
+offset_left = 470.0
+offset_top = 360.0
+offset_right = 710.0
+offset_bottom = 386.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 18
+text = "MAIN STREET"
+
+[node name="North" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/North"]
+position = Vector2(560.0, 20.0)
+shape = SubResource("shape_North")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/North"]
+polygon = PackedVector2Array(0, 0, 1120, 0, 1120, 40, 0, 40)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="South" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/South"]
+position = Vector2(560.0, 780.0)
+shape = SubResource("shape_South")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/South"]
+polygon = PackedVector2Array(0, 760, 1120, 760, 1120, 800, 0, 800)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="West" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/West"]
+position = Vector2(20.0, 400.0)
+shape = SubResource("shape_West")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/West"]
+polygon = PackedVector2Array(0, 40, 40, 40, 40, 760, 0, 760)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="East" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/East"]
+position = Vector2(1100.0, 400.0)
+shape = SubResource("shape_East")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/East"]
+polygon = PackedVector2Array(1080, 40, 1120, 40, 1120, 760, 1080, 760)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="PoliceNorth" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/PoliceNorth"]
+position = Vector2(340.0, 100.0)
+shape = SubResource("shape_PoliceNorth")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/PoliceNorth"]
+polygon = PackedVector2Array(160, 80, 520, 80, 520, 120, 160, 120)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="PoliceWest" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/PoliceWest"]
+position = Vector2(180.0, 220.0)
+shape = SubResource("shape_PoliceWest")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/PoliceWest"]
+polygon = PackedVector2Array(160, 120, 200, 120, 200, 320, 160, 320)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="PoliceEast" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/PoliceEast"]
+position = Vector2(500.0, 220.0)
+shape = SubResource("shape_PoliceEast")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/PoliceEast"]
+polygon = PackedVector2Array(480, 120, 520, 120, 520, 320, 480, 320)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="PoliceSouthWest" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/PoliceSouthWest"]
+position = Vector2(260.0, 300.0)
+shape = SubResource("shape_PoliceSouthWest")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/PoliceSouthWest"]
+polygon = PackedVector2Array(200, 280, 320, 280, 320, 320, 200, 320)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="PoliceSouthEast" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/PoliceSouthEast"]
+position = Vector2(440.0, 300.0)
+shape = SubResource("shape_PoliceSouthEast")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/PoliceSouthEast"]
+polygon = PackedVector2Array(400, 280, 480, 280, 480, 320, 400, 320)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="MachineNorthWest" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/MachineNorthWest"]
+position = Vector2(800.0, 420.0)
+shape = SubResource("shape_MachineNorthWest")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/MachineNorthWest"]
+polygon = PackedVector2Array(760, 400, 840, 400, 840, 440, 760, 440)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="MachineNorthEast" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/MachineNorthEast"]
+position = Vector2(980.0, 420.0)
+shape = SubResource("shape_MachineNorthEast")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/MachineNorthEast"]
+polygon = PackedVector2Array(920, 400, 1040, 400, 1040, 440, 920, 440)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="MachineWest" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/MachineWest"]
+position = Vector2(780.0, 580.0)
+shape = SubResource("shape_MachineWest")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/MachineWest"]
+polygon = PackedVector2Array(760, 440, 800, 440, 800, 720, 760, 720)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="MachineEast" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/MachineEast"]
+position = Vector2(1020.0, 580.0)
+shape = SubResource("shape_MachineEast")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/MachineEast"]
+polygon = PackedVector2Array(1000, 440, 1040, 440, 1040, 720, 1000, 720)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="MachineSouth" type="StaticBody2D" parent="WorldGeometry"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldGeometry/MachineSouth"]
+position = Vector2(900.0, 700.0)
+shape = SubResource("shape_MachineSouth")
+
+[node name="Wall" type="Polygon2D" parent="WorldGeometry/MachineSouth"]
+polygon = PackedVector2Array(800, 680, 1000, 680, 1000, 720, 800, 720)
+color = Color(0.4, 0.43, 0.45, 1)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("navigation")
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="AveryStart" type="Marker2D" parent="Markers"]
+position = Vector2(160, 680)
+
+[node name="DanielStart" type="Marker2D" parent="Markers"]
+position = Vector2(160, 500)
+
+[node name="DanielKeyMarker" type="Marker2D" parent="Markers"]
+position = Vector2(280, 500)
+
+[node name="DanielNormalExit" type="Marker2D" parent="Markers"]
+position = Vector2(100, 600)
+
+[node name="DanielEscape01" type="Marker2D" parent="Markers"]
+position = Vector2(420, 500)
+
+[node name="DanielEscape02" type="Marker2D" parent="Markers"]
+position = Vector2(560, 500)
+
+[node name="TheoStart" type="Marker2D" parent="Markers"]
+position = Vector2(260, 380)
+
+[node name="TheoWatchMarker" type="Marker2D" parent="Markers"]
+position = Vector2(280, 450)
+
+[node name="TheoSearchMarker" type="Marker2D" parent="Markers"]
+position = Vector2(100, 360)
+
+[node name="PoliceEntrance" type="Marker2D" parent="Markers"]
+position = Vector2(360, 340)
+
+[node name="RuthStart" type="Marker2D" parent="Markers"]
+position = Vector2(360, 200)
+
+[node name="JonahStart" type="Marker2D" parent="Markers"]
+position = Vector2(600, 200)
+
+[node name="CollisionMarker" type="Marker2D" parent="Markers"]
+position = Vector2(600, 500)
+
+[node name="MachineEntrance" type="Marker2D" parent="Markers"]
+position = Vector2(880, 460)
+
+[node name="MaraStart" type="Marker2D" parent="Markers"]
+position = Vector2(900, 600)
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="KeyRack" type="Polygon2D" parent="Objects"]
+polygon = PackedVector2Array(250, 520, 310, 520, 310, 538, 250, 538)
+color = Color(0.8, 0.69, 0.3, 1)
+
+[node name="KeyLabel" type="Label" parent="Objects"]
+offset_left = 250.0
+offset_top = 542.0
+offset_right = 490.0
+offset_bottom = 568.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 14
+text = "KEY RACK"
+
+[node name="Intersection" type="Label" parent="Objects"]
+offset_left = 592.0
+offset_top = 486.0
+offset_right = 832.0
+offset_bottom = 512.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 24
+text = "X"
+
+[node name="Machine" type="Polygon2D" parent="Objects"]
+polygon = PackedVector2Array(925, 500, 970, 500, 970, 550, 925, 550)
+color = Color(0.46, 0.55, 0.43, 1)
+
+[node name="MachineLabel" type="Label" parent="Objects"]
+offset_left = 850.0
+offset_top = 557.0
+offset_right = 1090.0
+offset_bottom = 583.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 14
+text = "MACHINE"
+
+[node name="NPCs" type="Node2D" parent="."]
+
+[node name="Daniel" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(160, 500)
+Definition = SubResource("def_Daniel")
+
+[node name="Body" parent="NPCs/Daniel" index="0"]
+color = Color(0.9, 0.55, 0.3, 1)
+
+[node name="NameLabel" parent="NPCs/Daniel" index="3"]
+text = "DANIEL"
+
+[node name="Theo" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(260, 380)
+Definition = SubResource("def_Theo")
+
+[node name="Body" parent="NPCs/Theo" index="0"]
+color = Color(0.85, 0.78, 0.35, 1)
+
+[node name="NameLabel" parent="NPCs/Theo" index="3"]
+text = "THEO"
+
+[node name="Ruth" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(360, 200)
+Definition = SubResource("def_Ruth")
+
+[node name="Body" parent="NPCs/Ruth" index="0"]
+color = Color(0.4, 0.65, 0.95, 1)
+
+[node name="NameLabel" parent="NPCs/Ruth" index="3"]
+text = "RUTH"
+
+[node name="Jonah" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(600, 200)
+Definition = SubResource("def_Jonah")
+
+[node name="Body" parent="NPCs/Jonah" index="0"]
+color = Color(0.65, 0.8, 0.45, 1)
+
+[node name="NameLabel" parent="NPCs/Jonah" index="3"]
+text = "JONAH"
+
+[node name="Mara" parent="NPCs" instance=ExtResource("npc")]
+position = Vector2(900, 600)
+Definition = SubResource("def_Mara")
+
+[node name="Body" parent="NPCs/Mara" index="0"]
+color = Color(0.75, 0.55, 0.8, 1)
+
+[node name="NameLabel" parent="NPCs/Mara" index="3"]
+text = "MARA"
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(160, 680)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("player")
+MoveSpeed = 180.0
+
+[node name="Body" type="Polygon2D" parent="Player"]
+polygon = PackedVector2Array(-11, -11, 11, -11, 11, 11, -11, 11)
+color = Color(0.95, 0.95, 0.95, 1)
+
+[node name="NameLabel" type="Label" parent="Player"]
+offset_left = -30.0
+offset_top = -36.0
+offset_right = 50.0
+offset_bottom = -10.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 16
+text = "AVERY"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("player_body")
+
+[node name="InteractionArea" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/InteractionArea"]
+shape = SubResource("interaction")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(560, 400)
+zoom = Vector2(0.8, 0.8)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Instructions" type="Label" parent="UI"]
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 1116.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 18
+text = "MAP BLOCKOUT  |  WASD / arrows: move  |  Enter both buildings"
+
+[node name="Scope" type="Label" parent="UI"]
+offset_left = 16.0
+offset_top = 39.0
+offset_right = 1116.0
+offset_bottom = 65.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 15
+text = "Navigation layout only. NPC schedules and interactions come next."
+
+[editable path="NPCs/Daniel"]
+[editable path="NPCs/Theo"]
+[editable path="NPCs/Ruth"]
+[editable path="NPCs/Jonah"]
+[editable path="NPCs/Mara"]

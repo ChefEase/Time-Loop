@@ -27,6 +27,8 @@
 
 ## Highest-priority remaining decisions
 
+**DEC-23 — Authorized map-only blockout, 2026-09-19:** user explicitly limited Phase 10's immediate assignment to section 102: branch, greybox geometry, six named actor placements, route markers, movement/navigation verification, commit/push, then stop. The digital layout differs from the proposed paper spec in document 16; no paper timings, role assignments, or interventions are silently adopted or overwritten. See [blockout validation](../time-loop/scenes/prototype/three_minute/README.md). Full causal behavior and external human acceptance remain pending.
+
 **DEC-22 — Authorized bounded implementation, 2026-09-19:** user requested Phase 9 persistent binary knowledge and testing through `main.tscn`. Extend the existing Autoload, reserve centralized IDs, emit learned notifications once, and add debug/physical-document tests. Preserve Phase 8's real reset path and exclude saving, notebook, Yarn integration, and advanced knowledge states. The [Phase 9 record](../time-loop/scenes/prototype/PHASE_9.md) separates automated evidence from pending human acceptance. Gate G and proposed story rules are unchanged.
 
 **DEC-21 — Authorized bounded implementation, 2026-09-19:** user requested Phase 8 in the existing `time-loop/` project: three-minute scene reload, persistent knowledge/loop count, fade, and reset verification. This is an explicit exception to the documents-only boundary for this task, not adoption of proposed story rules or closure of Gate G. See the [implementation and verification record](../time-loop/scenes/prototype/PHASE_8.md). Human visual acceptance remains pending.

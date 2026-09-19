@@ -35,6 +35,8 @@ The analytical paper pass is completed; overall **paper validation is not comple
 
 ## Phase boundaries
 
+**Bounded Phase 10 blockout exception, 2026-09-19:** the user authorized section 102 only: create the feature branch, build the small greybox map with six labeled characters, verify player movement and NPC navigation, commit/push, then stop before Daniel behavior. See DEC-23 in the [decision log](17_DECISION_LOG.md) and the [blockout record](../time-loop/scenes/prototype/three_minute/README.md). This is not authorization to complete the causal chain, export an external build, or close Gate G.
+
 **Bounded Phase 9 exception, 2026-09-19:** the user explicitly authorized extending the existing knowledge manager, centralized IDs, debug keyboard tests, and an interactable test document in `main.tscn`. See DEC-22 in the [decision log](17_DECISION_LOG.md) and the [Phase 9 verification record](../time-loop/scenes/prototype/PHASE_9.md). No save/notebook/dialogue system or full production is authorized. Automated checks do not close Gate G.
 
 **Bounded exception, 2026-09-19:** the user explicitly authorized Phase 8 loop-system implementation in the existing `time-loop/` software prototype. This supersedes the documents-only boundary for that task only. See [DEC-21](17_DECISION_LOG.md) and the [Phase 8 verification record](../time-loop/scenes/prototype/PHASE_8.md). Gate G remains OPEN; no paper playtest or full-production approval is implied.
