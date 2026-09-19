@@ -50,6 +50,10 @@ public partial class LoopManager : Node
         try
         {
             GD.Print($"Ending loop {LoopNumber}.");
+            if (DialogueManager.Instance != null)
+            {
+                await DialogueManager.Instance.StopForWorldResetAsync();
+            }
             await LoopTransition.Instance.FadeToBlack();
             CausalityManager.Instance?.ResetForNewLoop();
             LoopNumber++;

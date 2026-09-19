@@ -1,4 +1,6 @@
-﻿using Godot;
+using Godot;
+using System;
+using System.Threading.Tasks;
 using YarnSpinnerGodot;
 
 // Owns dialogue lifecycle only. Knowledge, world state and simulation remain elsewhere.
@@ -40,12 +42,41 @@ public partial class DialogueManager : Node
 
     public void Start(string nodeName)
     {
+        if (IsDialogueActive)
+        {
+            return;
+        }
+
         if (_runner == null)
         {
             GD.PushError("DialogueManager has no registered DialogueRunner.");
             return;
         }
         _runner.StartDialogueForget(nodeName);
+    }
+
+    public async Task StopForWorldResetAsync()
+    {
+        if (_runner == null || !IsDialogueActive)
+        {
+            return;
+        }
+
+        try
+        {
+            await _runner.Stop();
+        }
+        catch (Exception error)
+        {
+            GD.PushWarning($"Dialogue stopped during world reset: {error.Message}");
+        }
+
+        IsDialogueActive = false;
+        PlayerController? player = GetTree().CurrentScene?.GetNodeOrNull<PlayerController>("Player");
+        if (player != null)
+        {
+            player.DialogueLocked = false;
+        }
     }
 
     private void OnDialogueStarted()
@@ -98,5 +129,4 @@ public partial class DialogueManager : Node
         if (Instance == this) Instance = null;
     }
 }
-
 
